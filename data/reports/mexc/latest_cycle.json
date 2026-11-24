@@ -1,0 +1,23 @@
+{
+  "credentials_used": false,
+  "initial_capital_usdt": "100",
+  "mode": "STATE_PERSISTENCE_PROBE",
+  "orders_submitted": 0,
+  "paper_account_initialized": false,
+  "paper_decision_status": "PUBLISH_READBACK_VERIFIED_AWAITING_FRESH_CHECKOUT",
+  "paper_simulation_enabled": false,
+  "paper_state_write_requested": true,
+  "private_endpoints_used": false,
+  "provider": "mexc",
+  "run_utc": "2026-11-24T21:23:17.455703+00:00",
+  "state_recovery_probe": {
+    "batch_hash": "250252f30cecdbd59dec482b857910a5ca3cc6747a029035e13179e75df63675",
+    "commit_sha": "994dcbf22304ab5910614a914d41e943b7bee5f6",
+    "created": true,
+    "fresh_checkout_recovery_required": true,
+    "path": "events/2026/11/state-probe-1795555392595.json",
+    "remote_readback_verified": true
+  },
+  "state_write_mode": "UNPROTECTED_SINGLE_WRITER_APPEND_ONLY",
+  "wallet_used": false
+}

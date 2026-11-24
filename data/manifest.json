@@ -1,0 +1,11 @@
+{
+  "bootstrap_complete": false,
+  "created_at_ms": 1795555392595,
+  "instruments": {},
+  "last_processed_daily_bar_ms": null,
+  "last_snapshot_ms": null,
+  "last_state_recovery_probe_ms": 1795555392595,
+  "provider": "mexc",
+  "schema_version": 1,
+  "updated_at_ms": 1795555392595
+}
