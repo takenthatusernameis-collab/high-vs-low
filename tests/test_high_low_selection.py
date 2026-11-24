@@ -17,6 +17,7 @@ def instrument(iid: int, symbol: str) -> dict:
         "symbol": symbol,
         "usdt_account_eligible": True,
         "all_time_history_verified": True,
+        "history_origin_timestamp_ms": DAY,
     }
 
 
@@ -97,3 +98,35 @@ def test_missing_decision_day_bar_is_excluded() -> None:
     )
     assert not result.research_longs
     assert "MISSING_DECISION_CANDLE" in result.excluded[0]
+
+
+
+def test_pre_listing_candles_do_not_change_ath_or_atl() -> None:
+    item = instrument(11, "ORIGIN_FILTER")
+    item["history_origin_timestamp_ms"] = 10 * DAY
+    post_listing = history(11, "99", "100", "80")
+    for index, row in enumerate(post_listing):
+        row["timestamp_ms"] = (index + 10) * DAY
+    pre_listing = [
+        {
+            "instrument_id": 11,
+            "timestamp_ms": day * DAY,
+            "open": "50",
+            "high": "100000",
+            "low": "0.0001",
+            "close": "50",
+            "turnover_usdt": "100000000",
+        }
+        for day in range(1, 10)
+    ]
+    result = rank_mexc_universe(
+        [item],
+        {11: pre_listing + post_listing},
+        {11: {"last_price": "99", "mid_price": "99"}},
+        Decimal("100"),
+        as_of_timestamp_ms=44 * DAY,
+    )
+    assert result.research_longs[0].distance_pct == pytest.approx(
+        100.0 * (100.0 / 99.0 - 1.0)
+    )
+    assert result.research_shorts[0].distance_pct == pytest.approx(23.75)
