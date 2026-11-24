@@ -2458,7 +2458,7 @@ def _markdown_report(report: dict[str, Any]) -> str:
     if portfolio is None:
         lines.append(
             "Not initialized. Ranking and market-data collection do not imply a paper account. "
-            "The immutable state branch must be protected and the explicit writer gate enabled."
+            "The fresh-checkout recovery probe must be verified and the explicit paper-state writer enabled."
         )
     else:
         lines.extend([
