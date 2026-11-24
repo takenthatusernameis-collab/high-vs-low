@@ -388,8 +388,6 @@ def _current_position_tickers(
 def _ranking_report_rows(
     candidates: list[Any],
     instruments_by_key: dict[str, dict[str, Any]],
-    *,
-    include_b: bool = True,
 ) -> list[dict[str, Any]]:
     """Translate ATH/ATL proximity candidates to human-readable rows."""
     rows: list[dict[str, Any]] = []
@@ -401,12 +399,13 @@ def _ranking_report_rows(
             "symbol": str(instrument["symbol"]),
             "instrument_id": int(instrument["instrument_id"]),
             "category": str(instrument.get("category", "unclassified")),
-            "distance_pct": str(candidate.q),
+            "distance_pct": str(candidate.distance_pct),
             "distance_metric": ("distance_below_all_time_high_pct" if candidate.direction == "long" else "distance_above_all_time_low_pct"),
             "direction": candidate.direction,
-            "extreme_price": None if candidate.b is None else str(candidate.b),
+            "extreme_price": None if candidate.extreme_price is None else str(candidate.extreme_price),
             "completed_close": None if candidate.close_price is None else str(candidate.close_price),
-            "decision_bar_timestamp_ms": candidate.extreme_timestamp_ms,
+            "extreme_timestamp_ms": candidate.extreme_timestamp_ms,
+            "decision_bar_timestamp_ms": candidate.decision_timestamp_ms,
             "all_time_history_verified": bool(instrument.get("all_time_history_verified")),
             "history_observed_daily_gap_count": instrument.get("history_observed_daily_gap_count"),
         }
@@ -428,8 +427,10 @@ def _pending_entry_signal(
             rows.append({
                 "candidate_key": candidate.symbol,
                 "instrument_id": int(instrument["instrument_id"]),
-                "distance_pct": str(candidate.q),
-                "extreme_price": None if candidate.b is None else str(candidate.b),
+                "distance_pct": str(candidate.distance_pct),
+                "extreme_price": None if candidate.extreme_price is None else str(candidate.extreme_price),
+                "extreme_timestamp_ms": candidate.extreme_timestamp_ms,
+                "decision_timestamp_ms": candidate.decision_timestamp_ms,
                 "direction": candidate.direction,
                 "cycle_age": candidate.cycle_age,
                 "semi_cycle_direction": candidate.semi_cycle_direction,
@@ -468,13 +469,21 @@ def _restore_pending_rankings(
             b_value = item.get("extreme_price")
             rows.append(Candidate(
                 symbol=key,
-                q=float(item["distance_pct"]),
-                b=None if b_value is None else float(b_value),
+                distance_pct=float(item["distance_pct"]),
+                extreme_price=None if b_value is None else float(b_value),
                 direction=str(item["direction"]),
                 cycle_age=(
                     None if item.get("cycle_age") is None else int(item["cycle_age"])
                 ),
                 semi_cycle_direction=item.get("semi_cycle_direction"),
+                extreme_timestamp_ms=(
+                    None if item.get("extreme_timestamp_ms") is None
+                    else int(item["extreme_timestamp_ms"])
+                ),
+                decision_timestamp_ms=(
+                    None if item.get("decision_timestamp_ms") is None
+                    else int(item["decision_timestamp_ms"])
+                ),
             ))
         return rows
 
@@ -2230,7 +2239,6 @@ def _run() -> int:
                 "execution_long_top": _ranking_report_rows(
                     rankings.executable_longs[:10],
                     rankings.instruments_by_key,
-                    include_b=False,
                 ),
                 "execution_short_top": _ranking_report_rows(
                     rankings.executable_shorts[:10],
