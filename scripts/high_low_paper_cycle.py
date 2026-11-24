@@ -2342,6 +2342,19 @@ def _run() -> int:
         ),
         "instrument_count_all": len(client.contract_details()),
         "active_cross_margin_perpetual_count": len(instruments),
+        "all_time_history_verified_count": sum(
+            bool(row.get("all_time_history_verified")) for row in instruments
+        ),
+        "all_time_history_unverified_count": sum(
+            not bool(row.get("all_time_history_verified")) for row in instruments
+        ),
+        "all_time_history_daily_gap_count": sum(
+            int(row.get("history_observed_daily_gap_count", 0)) for row in instruments
+        ),
+        "listing_origin_metadata_missing_count": sum(
+            not bool(row.get("opening_time_ms") or row.get("create_time_ms"))
+            for row in instruments
+        ),
         "active_cross_usdt_perpetual_count": sum(
             bool(row.get("usdt_account_eligible")) for row in instruments
         ),
@@ -2457,6 +2470,10 @@ def _markdown_report(report: dict[str, Any]) -> str:
         "",
         f"- Ticker coverage: {report['ticker_coverage']}",
         f"- Missing latest daily bars: {report['missing_latest_bar_count']}",
+        f"- All-time history verified: {report.get('all_time_history_verified_count', 'not refreshed')}",
+        f"- All-time history unverified: {report.get('all_time_history_unverified_count', 'not refreshed')}",
+        f"- Observed missing daily timestamps: {report.get('all_time_history_daily_gap_count', 'not refreshed')}",
+        f"- Missing provider listing timestamps: {report.get('listing_origin_metadata_missing_count', 'not refreshed')}",
         f"- API failures: {report['api_failure_count']}",
         f"- Excluded/unranked records sampled: {len(report['excluded_or_unranked_sample'])}",
         "",
