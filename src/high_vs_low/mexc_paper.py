@@ -160,8 +160,8 @@ def rank_mexc_universe(
             executable_keys.add(key)
         else:
             excluded.append(f"{symbol}:TURNOVER_CAP")
-    long_rows.sort(key=lambda item: (item.q, item.symbol))
-    short_rows.sort(key=lambda item: (item.q, item.symbol))
+    long_rows.sort(key=lambda item: (item.distance_pct, item.symbol))
+    short_rows.sort(key=lambda item: (item.distance_pct, item.symbol))
     return MEXCRankings(
         research_longs=long_rows,
         research_shorts=short_rows,
