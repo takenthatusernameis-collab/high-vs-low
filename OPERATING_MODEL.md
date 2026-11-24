@@ -12,7 +12,7 @@ Research includes every active MEXC linear perpetual with per-instrument cross-m
 ## All-time history
 For each active contract, choose provider openingTime where available, otherwise createTime; floor to UTC day and fetch all completed Day1 candles through the latest completed candle. Split long ranges into requests of at most 2,000 bars. Persist origin, first/last candle, history status, daily gaps and watermarks. “All-time” means earliest available MEXC Futures perpetual history from that instrument's listing/opening date, not spot history or pre-listing prices.
 
-A rolling fallback may be captured for diagnostics but cannot qualify as all-time. Missing origin metadata, backfill failure, invalid OHLC, insufficient history or no decision-day candle keeps an instrument out of active ranking. Report gaps separately; API access is not proof of complete tick-level coverage.
+A rolling fallback may be captured for diagnostics but cannot qualify as all-time. Missing origin metadata, backfill failure, invalid OHLC, insufficient history, any observed missing daily timestamp or no decision-day candle keeps an instrument out of active ranking. Report gaps separately; API access is not proof of complete tick-level coverage.
 
 ## Ranking
 For each completed daily close, ATH is the maximum daily high and ATL the minimum daily low through that candle. Longs sort ascending by percent below ATH; shorts sort ascending by percent above ATL. Research ranks retain non-USDT contracts. Execution lists separately enforce USDT/USDT settlement, 30-day median turnover cap, fresh two-sided order book, impact and venue lot limits.
