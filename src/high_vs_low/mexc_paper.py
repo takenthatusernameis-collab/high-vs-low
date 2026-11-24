@@ -16,13 +16,14 @@ DEFAULT_MAX_TURNOVER_SHARE = Decimal("0.001")
 @dataclass(frozen=True)
 class Candidate:
     symbol: str
-    q: float
-    b: float | None
+    distance_pct: float
+    extreme_price: float | None
     direction: str
     cycle_age: int | None = None
     semi_cycle_direction: str | None = None
     close_price: float | None = None
     extreme_timestamp_ms: int | None = None
+    decision_timestamp_ms: int | None = None
 
 @dataclass(frozen=True)
 class MEXCRankings:
@@ -54,8 +55,7 @@ def rank_mexc_universe(
 ) -> MEXCRankings:
     """Rank closest-to-ATH longs and closest-to-ATL shorts using completed bars only.
 
-    Candidate.q stores a non-negative distance percentage for compatibility with
-    the inherited pending-signal data shape. It is not a Trend-Quality Q signal.
+    A smaller distance percentage is stronger on either side.
     """
     if not nav.is_finite() or nav <= 0:
         raise ValueError("nav must be a finite positive Decimal")
@@ -110,8 +110,38 @@ def rank_mexc_universe(
             excluded.append(f"{symbol}:NEGATIVE_EXTREME_DISTANCE")
             continue
         instruments_by_key[key] = instrument
-        long_rows.append(Candidate(key, float(distance_ath), float(ath), "long", None, None, float(close), as_of_timestamp_ms))
-        short_rows.append(Candidate(key, float(distance_atl), float(atl), "short", None, None, float(close), as_of_timestamp_ms))
+        ath_row = max(
+            rows,
+            key=lambda row: (
+                _dec(row.get("high"), "daily high", positive=True),
+                -int(row["timestamp_ms"]),
+            ),
+        )
+        atl_row = min(
+            rows,
+            key=lambda row: (
+                _dec(row.get("low"), "daily low", positive=True),
+                int(row["timestamp_ms"]),
+            ),
+        )
+        long_rows.append(Candidate(
+            symbol=key,
+            distance_pct=float(distance_ath),
+            extreme_price=float(ath),
+            direction="long",
+            close_price=float(close),
+            extreme_timestamp_ms=int(ath_row["timestamp_ms"]),
+            decision_timestamp_ms=as_of_timestamp_ms,
+        ))
+        short_rows.append(Candidate(
+            symbol=key,
+            distance_pct=float(distance_atl),
+            extreme_price=float(atl),
+            direction="short",
+            close_price=float(close),
+            extreme_timestamp_ms=int(atl_row["timestamp_ms"]),
+            decision_timestamp_ms=as_of_timestamp_ms,
+        ))
         if not instrument.get("usdt_account_eligible"):
             excluded.append(f"{symbol}:NON_USDT_SETTLEMENT_RESEARCH_ONLY")
             continue
