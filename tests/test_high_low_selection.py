@@ -46,8 +46,8 @@ def test_option_a_long_closest_to_ath_short_closest_to_atl() -> None:
     ranks = rank_mexc_universe(instruments, histories, tickers, Decimal("100"), as_of_timestamp_ms=AS_OF)
     assert ranks.research_longs[0].symbol == "mexc:1"
     assert ranks.research_shorts[0].symbol == "mexc:2"
-    assert ranks.research_longs[0].q == 100.0 / 99.0 - 1.0
-    assert ranks.research_shorts[0].q == 10.0
+    assert ranks.research_longs[0].distance_pct == 100.0 / 99.0 - 1.0
+    assert ranks.research_shorts[0].distance_pct == 10.0
     assert ranks.executable_longs[0].symbol == "mexc:1"
     assert ranks.executable_shorts[0].symbol == "mexc:2"
 
@@ -64,8 +64,8 @@ def test_rank_uses_only_candles_at_or_before_decision_timestamp() -> None:
         [item], {4: rows}, {4: {"last_price": "99", "mid_price": "99"}},
         Decimal("100"), as_of_timestamp_ms=AS_OF,
     )
-    assert result.research_longs[0].q == 100.0 * (100.0 / 99.0 - 1.0)
-    assert result.research_shorts[0].q == 100.0 * (99.0 / 80.0 - 1.0)
+    assert result.research_longs[0].distance_pct == 100.0 * (100.0 / 99.0 - 1.0)
+    assert result.research_shorts[0].distance_pct == 100.0 * (99.0 / 80.0 - 1.0)
 
 
 def test_incomplete_listing_history_is_not_ranked_as_all_time() -> None:
