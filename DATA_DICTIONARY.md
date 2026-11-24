@@ -5,7 +5,7 @@
 - create_time_ms / opening_time_ms: provider listing/opening metadata.
 - history_origin_timestamp_ms: first UTC day requested.
 - history_first_candle_timestamp_ms / history_last_candle_timestamp_ms: stored provider-history bounds.
-- all_time_history_verified: listing-origin capture completed with sufficient bars and reached the decision candle; not proof of zero intraday gaps.
+- all_time_history_verified: listing-origin capture has sufficient bars, reaches the decision candle and has no observed missing daily timestamps; this does not establish tick-level completeness.
 - history_observed_daily_gap_count: missing UTC daily timestamps observed between stored bars.
 - history_status: available/insufficient/error state.
 
