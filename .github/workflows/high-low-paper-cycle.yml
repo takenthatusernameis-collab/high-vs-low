@@ -1,0 +1,166 @@
+name: "▶ ACTIVE HIGH-LOW PAPER ACCOUNT — MEXC $100 USDT PAPER ONLY — MANUAL / AUTO"
+
+run-name: "${{ github.event_name == 'workflow_dispatch' && '▶ MANUAL HIGH-LOW PAPER RUN — MEXC $100 USDT — ACTIVE ACCOUNT' || '⏱ SCHEDULED HIGH-LOW PAPER RUN — MEXC $100 USDT — ACTIVE ACCOUNT' }} — run #${{ github.run_number }}"
+
+on:
+  schedule:
+    # Five-minute marking/risk monitoring plus retries of a pending frozen daily signal.
+    - cron: "*/5 * * * *"
+    # Dedicated UTC daily-close attempt; the candle watermark keeps this idempotent
+    # if a five-minute poll has already processed the same completed candle.
+    - cron: "1 0 * * *"
+  workflow_dispatch:
+    inputs:
+      confirm_high_low_paper_account:
+        description: "Confirm this is the ACTIVE $100 USDT MEXC PAPER account. This writes paper state only; it never places live exchange orders."
+        type: choice
+        required: true
+        options:
+          - I_CONFIRM_HIGH_LOW_100_USDT_PAPER_ONLY
+
+permissions:
+  contents: write
+
+concurrency:
+  group: paper-state-branch-single-writer
+  cancel-in-progress: false
+
+jobs:
+  cycle:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.confirm_high_low_paper_account == 'I_CONFIRM_HIGH_LOW_100_USDT_PAPER_ONLY' }}
+    name: "ACTIVE HIGH-LOW $100 USDT PAPER ACCOUNT — daily full refresh / five-minute monitoring and retries"
+    runs-on: ubuntu-24.04
+    # 355-minute job ceiling; keep 15 minutes for durable checkpoint publication and reports.
+    timeout-minutes: 355
+    env:
+      MARKET_DATA_DIR: ../market-data
+      PAPER_STATE_DIR: ../state
+      # 0 means process every currently discovered active cross-margin perpetual.
+      BOOTSTRAP_BATCH_SIZE: "0"
+      PYTHONUNBUFFERED: "1"
+      PAPER_STATE_WRITE_ENABLED: ${{ vars.PAPER_STATE_WRITE_ENABLED || 'true' }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out strategy source
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: strategy
+      - name: Check out public market-data branch
+        uses: actions/checkout@v4
+        with:
+          ref: market-data
+          path: market-data
+          fetch-depth: 0
+      # A new account generation first publishes a verified recovery probe.
+      # The next invocation must read it from this fresh checkout before creating
+      # financial paper state; the probe run itself never initializes capital.
+      # Five-minute snapshots never resize or neutral-rebalance open positions.
+      # They may retry the same frozen daily signal until its first successful full rebuild.
+      - name: Check out immutable paper-event branch
+        uses: actions/checkout@v4
+        with:
+          ref: state
+          path: state
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install strategy package
+        working-directory: strategy
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+      # MEXC Futures REST now uses api.mexc.com with 1.5-second minimum request pacing.
+      # This is the sole active $100 USDT paper-account writer; no live orders are sent.
+      - name: Run High-Low ATH/ATL data, daily portfolio refresh and five-minute monitoring/retry cycle
+        id: cycle
+        working-directory: strategy
+        shell: bash
+        # Stop data collection at 340 minutes so the always-run publisher has 15 minutes.
+        timeout-minutes: 340
+        run: |
+          mkdir -p ../market-data/data/reports/mexc
+          set -o pipefail
+          python scripts/high_low_paper_cycle.py | tee ../market-data/data/reports/mexc/workflow-last-run.log
+      - name: Commit public data, snapshots and research reports
+        if: always()
+        working-directory: market-data
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/
+          if git diff --cached --quiet; then
+            echo "No public market-data changes to commit."
+          else
+            git commit -m "Append High-Low MEXC market data and research snapshot"
+            git push origin HEAD:market-data
+          fi
+      - name: Refresh immutable state checkout after this cycle
+        id: refresh_state
+        if: always()
+        working-directory: state
+        shell: bash
+        run: |
+          git fetch origin state
+          git reset --hard FETCH_HEAD
+      - name: Build compact High-Low $100 USDT paper status and both equity curves
+        id: performance_report
+        if: always() && steps.refresh_state.outcome == 'success'
+        working-directory: strategy
+        env:
+          PAPER_STATE_DIR: ../state
+          MARKET_DATA_DIR: ../market-data
+          PAPER_STATUS_PATH: ../PAPER_STATUS.md
+          PAPER_TRADE_JOURNAL_PATH: ../PAPER_TRADE_JOURNAL.md
+          PAPER_EQUAL_EQUITY_SVG_PATH: ../equal_exposure_equity_curve.svg
+          PAPER_ALTERNATIVE_EQUITY_SVG_PATH: ../alternative_path_equity_curve.svg
+          PAPER_WORKFLOW_OUTCOME: ${{ steps.cycle.outcome }}
+          PAPER_WORKFLOW_RUN_ID: ${{ github.run_id }}
+          PAPER_WORKFLOW_RUN_NUMBER: ${{ github.run_number }}
+          PAPER_WORKFLOW_RUN_ATTEMPT: ${{ github.run_attempt }}
+          PAPER_WORKFLOW_SERVER_URL: ${{ github.server_url }}
+          PAPER_WORKFLOW_REPOSITORY: ${{ github.repository }}
+        run: python scripts/build_paper_status.py
+      - name: Publish compact active paper status to main
+        if: always() && steps.performance_report.outcome == 'success'
+        shell: bash
+        run: |
+          git -C strategy config user.name "github-actions[bot]"
+          git -C strategy config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git -C strategy fetch origin main
+            git -C strategy checkout -B main origin/main
+            cp PAPER_STATUS.md strategy/PAPER_STATUS.md
+            cp PAPER_TRADE_JOURNAL.md strategy/PAPER_TRADE_JOURNAL.md
+            cp equal_exposure_equity_curve.svg strategy/equal_exposure_equity_curve.svg
+            cp alternative_path_equity_curve.svg strategy/alternative_path_equity_curve.svg
+            git -C strategy add PAPER_STATUS.md PAPER_TRADE_JOURNAL.md equal_exposure_equity_curve.svg alternative_path_equity_curve.svg
+            if git -C strategy diff --cached --quiet; then
+              echo "Compact paper status is unchanged."
+              exit 0
+            fi
+            git -C strategy commit -m "Refresh active $100 USDT paper status [skip ci]"
+            if git -C strategy push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Status push raced with another main update; retrying from latest main."
+          done
+          echo "Unable to publish compact status after three fast-forward retries."
+          exit 1
+      - name: Upload active paper status and research data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: high-low-active-100usdt-paper-status
+          path: |
+            market-data/data/reports/mexc/
+            PAPER_STATUS.md
+            PAPER_TRADE_JOURNAL.md
+            equal_exposure_equity_curve.svg
+            alternative_path_equity_curve.svg
+          if-no-files-found: warn
+          retention-days: 30

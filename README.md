@@ -1,42 +1,31 @@
-# High vs Low — MEXC Forward Paper Research
+# Find Low vs. High — Market-Neutral Paper Strategy
 
-A standalone, paper-only cross-sectional futures strategy. It ranks eligible contracts by proximity to verified historical price extremes:
+An independent paper-only MEXC Futures research and forward-simulation system. It transfers the tested engineering architecture of the Trend-Quality project while replacing its signal with proximity to historical price extremes.
 
-- **Long:** smallest percentage distance below the historical all-time high (closest to ATH).
-- **Short:** smallest percentage distance above the historical all-time low (closest to ATL).
+## Strategy — Option A
 
-This repository is an independent strategy generation. It does not import, share, or combine state with the trend-quality paper account.
+At each completed UTC daily candle, the long side ranks assets by ascending percentage distance below their historical all-time high (closest to ATH first). The short side ranks assets by ascending percentage distance above their historical all-time low (closest to ATL first).
 
-## Status
+Long distance = 100 × (historical ATH / completed close − 1).
+Short distance = 100 × (completed close / historical ATL − 1).
 
-Initial engineering foundation. No live orders, exchange credentials, private endpoints, or exchange-side stops. A passing CI suite is engineering evidence, not trading evidence. The paper account must not be activated until the read-only preflight, full-history coverage, state persistence, and execution gates pass.
+No Trend-Quality, EMA, Q/B or momentum signal is used. “All-time” means earliest available MEXC Futures history from the perpetual contract's provider creation/opening timestamp. It is not spot-market ATH/ATL and does not include price action before the derivative existed. Instruments without listing-date history provenance, sufficient valid history or the current decision-day candle are excluded from active ranking.
 
-## Strategy specification
+## Independent portfolio paths
 
-For each eligible instrument at completed UTC daily close:
+- Primary paper account: one long and one short, each targeting approximately 1× NAV USDT notional (50% NAV margin at 2× leverage), with independent lot rounding, simulated order-book fills, fees, slippage and funding.
+- Inverse-volatility counterfactual: uses the exact same selected pair and rebalance timestamps. It allocates more gross notional to the lower-volatility leg based on 30 completed daily returns and applies the inherited volatility-matching overlay only when pair volatility is lower. This is a shadow path, not a second account or order stream.
 
-`ath_distance_pct = 100 * (historical_ath / close - 1)`
+Only the equal-notional path writes primary account state and drives risk controls. Both curves are reported separately.
 
-`atl_distance_pct = 100 * (close / historical_atl - 1)`
+## Operating policy
 
-Long candidates are sorted by ascending `ath_distance_pct`; short candidates by ascending `atl_distance_pct`. The selected long and short must be distinct instruments. Missing, invalid, stale, or incomplete all-time history is ineligible. The strategy uses the candle close and extrema available as of that decision timestamp; future candles must never leak into the historical ranking.
+- Independent 100 USDT virtual account: mexc-usdt-forward-high-low-100usdt-v1.
+- Strategy: high-low-ath-atl-cross-sectional-v1-100usdt.
+- Research universe: all active MEXC linear perpetuals with per-instrument cross-margin capability and no asset-category restriction.
+- Execution universe: USDT-quoted and USDT-settled contracts only.
+- Decision: first complete-data cycle after each new UTC daily candle.
+- Monitoring: five-minute marks/risk and a 00:01 UTC daily-close backup.
+- Public unauthenticated data only. No credentials, private endpoints, Testnet or live orders.
 
-The initial default is one long and one short, equal target USDT notional, with independent account state. The implementation exposes explicit configuration for universe eligibility and portfolio limits; it does not silently impose a fixed asset-count cap.
-
-## Engineering roadmap
-
-1. Read-only MEXC public market-data adapter and contract discovery.
-2. Resumable earliest-available daily-candle history capture with per-symbol coverage manifests.
-3. Point-in-time ATH/ATL feature calculation and deterministic ranking.
-4. Public order-book execution simulation, fees, slippage, funding, lot rounding and minimum-size checks.
-5. Independent paper ledger, idempotent event journal, recovery and single-writer persistence.
-6. Daily decision workflow plus monitoring/risk workflow.
-7. Coverage, readiness, and performance reporting with clear evidence separation.
-
-See [docs/STRATEGY.md](docs/STRATEGY.md), [docs/OPERATING_MODEL.md](docs/OPERATING_MODEL.md), and [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md).
-
-## Local development
-
-Python 3.11+. Install with `pip install -e ".[dev]"`, then run `pytest` and `python -m high_vs_low.cli --help`.
-
-All data ingestion is public/read-only. No command submits an exchange order.
+See IMPLEMENTATION_PROMPT.md, OPERATING_MODEL.md, MATHEMATICAL_REFERENCE.md, ASSUMPTIONS.md, DATA_DICTIONARY.md and RUNBOOK.md for the operating contract. No profitability claim is made.
