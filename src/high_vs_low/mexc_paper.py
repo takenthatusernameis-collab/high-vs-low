@@ -71,13 +71,18 @@ def rank_mexc_universe(
         symbol = str(source["symbol"])
         key = f"mexc:{iid}"
         instrument = dict(source)
-        rows = sorted((
-            row for row in histories.get(iid, [])
-            if 0 < int(row.get("timestamp_ms", 0)) <= as_of_timestamp_ms
-        ), key=lambda row: int(row["timestamp_ms"]))
         if not bool(instrument.get("all_time_history_verified")):
             excluded.append(f"{symbol}:ALL_TIME_HISTORY_NOT_VERIFIED")
             continue
+        origin_value = instrument.get("history_origin_timestamp_ms")
+        if origin_value is None:
+            excluded.append(f"{symbol}:MISSING_HISTORY_ORIGIN")
+            continue
+        origin_timestamp_ms = int(origin_value)
+        rows = sorted((
+            row for row in histories.get(iid, [])
+            if origin_timestamp_ms <= int(row.get("timestamp_ms", 0)) <= as_of_timestamp_ms
+        ), key=lambda row: int(row["timestamp_ms"]))
         if len(rows) < minimum_history:
             excluded.append(f"{symbol}:INSUFFICIENT_HISTORY:{len(rows)}")
             continue
