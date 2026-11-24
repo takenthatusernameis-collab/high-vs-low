@@ -46,8 +46,8 @@ def test_option_a_long_closest_to_ath_short_closest_to_atl() -> None:
     ranks = rank_mexc_universe(instruments, histories, tickers, Decimal("100"), as_of_timestamp_ms=AS_OF)
     assert ranks.research_longs[0].symbol == "mexc:1"
     assert ranks.research_shorts[0].symbol == "mexc:2"
-    assert ranks.research_longs[0].q == 100.0 * (100.0 / 99.0 - 1.0)
-    assert ranks.research_shorts[0].q == 100.0 * (11.0 / 10.0 - 1.0)
+    assert ranks.research_longs[0].q == 100.0 / 99.0 - 1.0
+    assert ranks.research_shorts[0].q == 10.0
     assert ranks.executable_longs[0].symbol == "mexc:1"
     assert ranks.executable_shorts[0].symbol == "mexc:2"
 
@@ -82,11 +82,16 @@ def test_incomplete_listing_history_is_not_ranked_as_all_time() -> None:
 
 def test_missing_decision_day_bar_is_excluded() -> None:
     rows = history(9, "99", "100", "80")
+    rows.append({
+        "instrument_id": 9, "timestamp_ms": 36 * DAY,
+        "open": "99", "high": "100", "low": "80", "close": "99",
+        "turnover_usdt": "100000000",
+    })
     rows.pop()
     result = rank_mexc_universe(
         [instrument(9, "MISSING_BAR")], {9: rows},
         {9: {"last_price": "99", "mid_price": "99"}},
-        Decimal("100"), as_of_timestamp_ms=AS_OF,
+        Decimal("100"), as_of_timestamp_ms=36 * DAY,
     )
     assert not result.research_longs
     assert "MISSING_DECISION_CANDLE" in result.excluded[0]
