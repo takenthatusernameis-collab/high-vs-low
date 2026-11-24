@@ -9,8 +9,10 @@ Account: mexc-usdt-forward-high-low-100usdt-v1
 ## Implemented
 Independent package, public MEXC adapter, segmented history retrieval, market-data manifest provenance, ATH/ATL ranker, simulated execution, fees/funding/NAV accounting, combined risk controls, append-only state publisher, daily/five-minute cycle, paper status generator and inverse-volatility shadow curve.
 
+## Verified engineering evidence
+- Hosted GitHub Actions CI: [run 45384439303](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45384439303), Ruff passed and 51 tests passed on main commit `b99a49f92a1dbbd8405414ac6a75774ebe42ec22`.
+
 ## Evidence outstanding
-- Hosted CI result.
 - Read-only MEXC public preflight and current universe coverage.
 - Listing-date history coverage and daily-gap audit.
 - State recovery probe and account initialization.
