@@ -454,7 +454,7 @@ def _restore_pending_rankings(
     pending: dict[str, Any],
     manifest_instruments: dict[str, dict[str, Any]],
 ) -> MEXCRankings | None:
-    """Rehydrate the frozen daily ranking without recalculating Q."""
+    """Rehydrate the frozen daily ranking without changing the frozen ATH/ATL signal."""
     instruments_by_key: dict[str, dict[str, Any]] = {}
 
     def decode(side: str) -> list[Candidate]:
@@ -739,6 +739,7 @@ def _bootstrap_or_increment(
                 and first_history_ms >= listing_day_ms
                 and last_history_ms is not None
                 and last_history_ms >= latest_completed_bar_ms
+                and gap_count == 0
             )
             if is_bootstrap:
                 status = "AVAILABLE" if total_count >= 35 else "INSUFFICIENT_HISTORY"
@@ -2243,7 +2244,6 @@ def _run() -> int:
                 "execution_short_top": _ranking_report_rows(
                     rankings.executable_shorts[:10],
                     rankings.instruments_by_key,
-                    include_b=False,
                 ),
                 "history_coverage_pass": history_coverage_pass,
                 "missing_position_marks": position_mark_gaps,
@@ -2369,12 +2369,10 @@ def _run() -> int:
         "execution_long_top": _ranking_report_rows(
             rankings.executable_longs[:20],
             rankings.instruments_by_key,
-            include_b=False,
         ),
         "execution_short_top": _ranking_report_rows(
             rankings.executable_shorts[:20],
             rankings.instruments_by_key,
-            include_b=False,
         ),
         "excluded_or_unranked_sample": rankings.excluded[:50],
         "paper_state_write_requested": writer_requested,
