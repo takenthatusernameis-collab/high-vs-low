@@ -597,7 +597,7 @@ def render_primary_trade_journal(
     generated_at_ms: int,
     workflow_metadata: dict[str, str] | None = None,
 ) -> str:
-    """Render timestamped fills and funding for the primary v4 account only."""
+    """Render timestamped fills and funding for the High-Low primary account only."""
     events = [
         event for event in _load_events(Path(state_dir))
         if event.get("account_id") == ACCOUNT_ID
@@ -712,11 +712,11 @@ def render_primary_trade_journal(
     run_url = metadata.get("run_url", "")
     run_link = f"[{run_id}]({run_url})" if run_id and run_url else (run_id or "Not yet run")
     lines = [
-        "# Primary Paper Trade Journal — MEXC $100 USDT v4",
+        "# Primary High-Low Paper Trade Journal — MEXC $100 USDT",
         "",
         (
             "**Primary equal-exposure account only.** This journal is reconstructed from "
-            "the verified, append-only v4 event chain. It contains no alternative-path "
+            "the verified, append-only High-Low event chain. It contains no alternative-path "
             "trades or shadow executions."
         ),
         "",
@@ -845,7 +845,7 @@ def render_paper_status(
     alternative_svg_path.parent.mkdir(parents=True, exist_ok=True)
     equal_svg_path.write_text(
         _equity_svg(
-            equal_points, initial, "Equal-Exposure Strategy — Equity Curve",
+            equal_points, initial, "High-Low Equal-Notional Strategy — Equity Curve",
             (
                 "Primary paper strategy. Both legs target equal USDT notional; "
                 "original fills and fees."
@@ -890,7 +890,7 @@ def render_paper_status(
     workflow_link = (
         f"[Open active workflow]({workflow_url})"
         if workflow_url
-        else "Open the MEXC paper workflow in GitHub Actions"
+        else "Open the High-Low paper workflow in GitHub Actions"
     )
     current_bar = _utc(latest_bar)
     next_step = (
