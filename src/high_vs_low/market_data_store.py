@@ -102,6 +102,12 @@ class MarketDataStore:
             else:
                 status = "active"
             first_seen = previous.get("first_seen_at_ms", int(now_ms))
+            provider_origin = row.get("opening_time_ms") or row.get("create_time_ms")
+            origin_day_ms = (
+                (int(provider_origin) // 86_400_000) * 86_400_000
+                if provider_origin else None
+            )
+            origin_unchanged = previous.get("history_origin_timestamp_ms") == origin_day_ms
             stored[instrument_id] = {
                 **row,
                 "instrument_id": int(row["instrument_id"]),
@@ -109,17 +115,18 @@ class MarketDataStore:
                 "last_seen_at_ms": int(now_ms),
                 "missing_from_feed_count": 0,
                 "status": status,
-                "last_candle_timestamp_ms": previous.get("last_candle_timestamp_ms"),
-                "bootstrap_complete": bool(previous.get("bootstrap_complete", False)),
+                "last_candle_timestamp_ms": previous.get("last_candle_timestamp_ms") if origin_unchanged else None,
+                "bootstrap_complete": bool(previous.get("bootstrap_complete", False)) and origin_unchanged,
                 "bootstrap_attempts": int(previous.get("bootstrap_attempts", 0)),
-                "last_bootstrap_error": previous.get("last_bootstrap_error"),
-                "history_status": previous.get("history_status"),
-                "last_checked_daily_bar_ms": previous.get("last_checked_daily_bar_ms"),
+                "last_bootstrap_error": previous.get("last_bootstrap_error") if origin_unchanged else None,
+                "history_status": previous.get("history_status") if origin_unchanged else None,
+                "last_checked_daily_bar_ms": previous.get("last_checked_daily_bar_ms") if origin_unchanged else None,
                 "last_funding_timestamp_ms": previous.get("last_funding_timestamp_ms"),
-                "all_time_history_verified": bool(previous.get("all_time_history_verified", False)),
-                "history_origin_timestamp_ms": previous.get("history_origin_timestamp_ms"),
-                "history_first_candle_timestamp_ms": previous.get("history_first_candle_timestamp_ms"),
-                "history_last_candle_timestamp_ms": previous.get("history_last_candle_timestamp_ms"),
+                "all_time_history_verified": bool(previous.get("all_time_history_verified", False)) and origin_unchanged,
+                "history_origin_timestamp_ms": origin_day_ms,
+                "history_first_candle_timestamp_ms": previous.get("history_first_candle_timestamp_ms") if origin_unchanged else None,
+                "history_last_candle_timestamp_ms": previous.get("history_last_candle_timestamp_ms") if origin_unchanged else None,
+                "history_observed_daily_gap_count": int(previous.get("history_observed_daily_gap_count", 0)) if origin_unchanged else 0,
             }
             counts[status] += 1
         for instrument_id, previous in stored.items():
