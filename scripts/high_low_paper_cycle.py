@@ -736,7 +736,7 @@ def _bootstrap_or_increment(
                 listing_day_ms is not None
                 and total_count >= 35
                 and first_history_ms is not None
-                and first_history_ms >= listing_day_ms
+                and first_history_ms == listing_day_ms
                 and last_history_ms is not None
                 and last_history_ms >= latest_completed_bar_ms
                 and gap_count == 0
@@ -1961,6 +1961,15 @@ def _run() -> int:
             record.get("all_time_history_verified")
         )
         instrument["history_status"] = record.get("history_status")
+        instrument["history_origin_timestamp_ms"] = record.get(
+            "history_origin_timestamp_ms"
+        )
+        instrument["history_first_candle_timestamp_ms"] = record.get(
+            "history_first_candle_timestamp_ms"
+        )
+        instrument["history_last_candle_timestamp_ms"] = record.get(
+            "history_last_candle_timestamp_ms"
+        )
         instrument["history_observed_daily_gap_count"] = int(
             record.get("history_observed_daily_gap_count", 0)
         )
