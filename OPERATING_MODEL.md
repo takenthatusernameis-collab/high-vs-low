@@ -28,5 +28,9 @@ The shadow path reuses primary symbols, sides and rebalance timestamps. At each 
 ## State
 Source code on main, public data on market-data, paper events on state. All event writers use one non-cancelling concurrency group. Verify full hash chain, reject forks/duplicates/conflicts, append immutable files, fast-forward only and verify exact remote read-back. Public state is permanent; never store secrets.
 
+## First-run recovery handoff
+
+A new account generation uses two explicit stages, but they must complete in one workflow invocation. Stage one writes only a non-financial recovery probe and verifies the exact remote read-back. Stage two performs a separate checkout of the `state` branch into a new directory, verifies the full event chain and exact probe fields, and only then initializes the 100 USDT virtual account. Do not rely on a later five-minute cron tick to run stage two. The one-time activation path is restricted to a dedicated marker file and exact commit-message token; ordinary source pushes do not launch the paper workflow. The report identifies probe completion, account initialization, data/ranking completion, and pair entry as separate statuses.
+
 ## Evidence
 Report public API checks, history coverage, tests, state recovery, account initialization, simulated fills and forward observations independently. Performance statistics remain unavailable until sample gates pass.
