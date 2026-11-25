@@ -16,7 +16,7 @@ Independent package, public MEXC adapter, segmented history retrieval, market-da
 
 The first scheduled workflow run (`45490491168`, 2026-11-24 21:22 UTC) completed its **non-financial state persistence probe only**. It correctly reported `paper_account_initialized=false`, `paper_simulation_enabled=false`, and `orders_submitted=0`. The market-data manifest contained zero instruments because the probe path returns before universe discovery. The state branch contains the verified probe event. This run did not execute ATH/ATL ranking or simulated pair selection, so it does not indicate that the strategy found no eligible assets.
 
-The workflow now fetches the state branch again into a distinct fresh checkout and continues immediately after a valid probe. A path-scoped one-time activation is being committed for the already-published probe. The recovery change passed hosted CI (58 tests). No financial initialization, public-universe bootstrap, paper position or simulated fill is claimed until the activation run reports it.
+The workflow now fetches the state branch again into a distinct fresh checkout and continues immediately after a valid probe. The path-scoped one-time marker was committed as `693ddb32c0d3adf85694085a9abe7176ccdf2024` and triggered [activation run 45536591520](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45536591520), currently executing the full first data/research cycle. The recovery change passed hosted CI (58 tests). Account initialization and any simulated positions remain unverified until that run publishes its report.
 
 ## Evidence outstanding
 - Read-only MEXC public preflight and current universe coverage.
