@@ -1,8 +1,14 @@
 name: "▶ ACTIVE HIGH-LOW PAPER ACCOUNT — MEXC $100 USDT PAPER ONLY — MANUAL / AUTO"
 
-run-name: "${{ github.event_name == 'workflow_dispatch' && '▶ MANUAL HIGH-LOW PAPER RUN — MEXC $100 USDT — ACTIVE ACCOUNT' || '⏱ SCHEDULED HIGH-LOW PAPER RUN — MEXC $100 USDT — ACTIVE ACCOUNT' }} — run #${{ github.run_number }}"
+run-name: "${{ github.event_name == 'workflow_dispatch' && '▶ MANUAL HIGH-LOW PAPER RUN — MEXC $100 USDT — ACTIVE ACCOUNT' || (github.event_name == 'push' && '▶ ONE-TIME HIGH-LOW RECOVERY ACTIVATION — MEXC $100 USDT' || '⏱ SCHEDULED HIGH-LOW PAPER RUN — MEXC $100 USDT — ACTIVE ACCOUNT') }} — run #${{ github.run_number }}"
 
 on:
+  # One-shot activation path: adding the dedicated marker triggers the already-probed
+  # account once, without enabling paper execution on ordinary source-code pushes.
+  push:
+    branches: [main]
+    paths:
+      - ".github/activations/high-low-first-run-once"
   schedule:
     # Five-minute marking/risk monitoring plus retries of a pending frozen daily signal.
     - cron: "*/5 * * * *"
@@ -27,7 +33,7 @@ concurrency:
 
 jobs:
   cycle:
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.confirm_high_low_paper_account == 'I_CONFIRM_HIGH_LOW_100_USDT_PAPER_ONLY' }}
+    if: ${{ (github.event_name != 'workflow_dispatch' || inputs.confirm_high_low_paper_account == 'I_CONFIRM_HIGH_LOW_100_USDT_PAPER_ONLY') && (github.event_name != 'push' || contains(github.event.head_commit.message, '[HIGH_LOW_BOOTSTRAP_AFTER_PROBE]')) }}
     name: "ACTIVE HIGH-LOW $100 USDT PAPER ACCOUNT — daily full refresh / five-minute monitoring and retries"
     runs-on: ubuntu-24.04
     # 355-minute job ceiling; keep 15 minutes for durable checkpoint publication and reports.
@@ -85,6 +91,43 @@ jobs:
           mkdir -p ../market-data/data/reports/mexc
           set -o pipefail
           python scripts/high_low_paper_cycle.py | tee ../market-data/data/reports/mexc/workflow-last-run.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(
+              Path("../market-data/data/reports/mexc/latest_cycle.json").read_text(encoding="utf-8")
+          )
+          with open(__import__("os").environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"mode={report.get('mode', 'UNKNOWN')}\\n")
+          PY
+      # A first-ever invocation deliberately writes only the non-financial probe.
+      # Do not wait for another cron tick: fetch the published probe into a distinct,
+      # fresh checkout, verify it, then continue into account initialization/data capture.
+      - name: Check out recovery probe from a fresh state checkout
+        id: recovery_state_checkout
+        if: ${{ steps.cycle.outcome == 'success' && steps.cycle.outputs.mode == 'STATE_PERSISTENCE_PROBE' }}
+        uses: actions/checkout@v4
+        with:
+          ref: state
+          path: state-recovery
+          fetch-depth: 0
+      - name: Continue immediately after verified recovery probe
+        id: recovery_cycle
+        if: ${{ steps.recovery_state_checkout.outcome == 'success' }}
+        working-directory: strategy
+        shell: bash
+        timeout-minutes: 340
+        env:
+          MARKET_DATA_DIR: ../market-data
+          PAPER_STATE_DIR: ../state-recovery
+          BOOTSTRAP_BATCH_SIZE: "0"
+          PYTHONUNBUFFERED: "1"
+          PAPER_STATE_WRITE_ENABLED: ${{ vars.PAPER_STATE_WRITE_ENABLED || 'true' }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -o pipefail
+          python scripts/high_low_paper_cycle.py | tee ../market-data/data/reports/mexc/workflow-last-run.log
       - name: Commit public data, snapshots and research reports
         if: always()
         working-directory: market-data
@@ -118,7 +161,7 @@ jobs:
           PAPER_TRADE_JOURNAL_PATH: ../PAPER_TRADE_JOURNAL.md
           PAPER_EQUAL_EQUITY_SVG_PATH: ../equal_exposure_equity_curve.svg
           PAPER_ALTERNATIVE_EQUITY_SVG_PATH: ../alternative_path_equity_curve.svg
-          PAPER_WORKFLOW_OUTCOME: ${{ steps.cycle.outcome }}
+          PAPER_WORKFLOW_OUTCOME: ${{ steps.recovery_cycle.outcome == 'failure' && 'failure' || steps.cycle.outcome }}
           PAPER_WORKFLOW_RUN_ID: ${{ github.run_id }}
           PAPER_WORKFLOW_RUN_NUMBER: ${{ github.run_number }}
           PAPER_WORKFLOW_RUN_ATTEMPT: ${{ github.run_attempt }}
