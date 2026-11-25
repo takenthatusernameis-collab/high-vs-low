@@ -26,5 +26,11 @@ Reconstruct the exact primary selected pair, sides and rebalance timestamps. Est
 ## Safety and durability
 Public unauthenticated market data only. No live orders, Testnet, credentials, private endpoints or wallet methods. Source code on main, market data on market-data, paper events on state. Use one non-cancelling single-writer lock. Verify the whole parent-hash chain; reject forks, duplicates and conflicting content; append immutable event files; advance refs fast-forward only; verify exact remote read-back. First invocation publishes a non-financial recovery probe; a later fresh checkout verifies it before account initialization. Never import Trend-Quality trades, balances, events or performance.
 
+## Bootstrap recovery lifecycle
+
+The first invocation for a new account generation is probe-only. After its event batch has been committed and exact remote read-back is verified, the same workflow must fetch the `state` branch again into a distinct fresh checkout. It must only continue after validating the entire hash chain and the exact non-financial probe payload. The workflow must not rely on a later cron tick for this handoff. The first financial initialization and data cycle then run against the fresh checkout. A one-time path-scoped activation marker may start the already-probed account, but arbitrary code pushes must never trigger paper execution. Keep the probe and financial initialization as separate auditable stages.
+
+The report must distinguish `STATE_PERSISTENCE_PROBE`, `ACCOUNT_INITIALIZED_NO_PAIR`, `PAIR_REBUILT`, `NO_EXECUTABLE_PAIR`, and explicit data/execution blocks. Account initialization alone is not a trade. Never force a pair or weaken eligibility, market-data, order-book, lot-size, fee, risk or two-sided-fill safeguards to obtain nonzero positions.
+
 ## Evidence
 Separate API preflight, history coverage, engineering tests, recovery, account initialization, simulated fills and forward performance. Missing metrics remain unavailable. Never claim profitability from tests or partial data.
