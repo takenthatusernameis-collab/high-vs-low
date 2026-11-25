@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Daily-close and five-minute MEXC market-data and gated USDT forward-paper cycle.
+"""Daily-close and 30-minute MEXC market-data and gated USDT forward-paper cycle.
 
 Public market data can be collected and ranked without state-write authorization.
 Portfolio transitions require the explicit PAPER_STATE_WRITE_ENABLED flag.
@@ -417,7 +417,7 @@ def _pending_entry_signal(
     rankings: MEXCRankings,
     daily_bar_timestamp_ms: int,
 ) -> dict[str, Any] | None:
-    """Persist the candle-stamped execution shortlist for five-minute retries."""
+    """Persist the candle-stamped execution shortlist for 30-minute retries."""
     def encode(candidates: list[Candidate]) -> list[dict[str, Any]]:
         rows: list[dict[str, Any]] = []
         for candidate in candidates[:10]:
@@ -1467,7 +1467,7 @@ def _snapshot_only_cycle(
     server_ms: int,
     market_data_dir: Path,
 ) -> int:
-    """Five-minute portfolio valuation/risk path; no ordinary strategy decisions."""
+    """30-minute portfolio valuation/risk path; no ordinary strategy decisions."""
     ticker_by_id: dict[int, dict[str, Any]] = {}
     position_instruments: list[dict[str, Any]] = []
     missing_symbols: list[str] = []
@@ -1568,7 +1568,7 @@ def _snapshot_only_cycle(
         if positions:
             # The REST ticker timestamp is last-trade time and may legitimately lag
             # for quiet contracts. Use the all-market WebSocket push timestamp,
-            # which is the exchange server time, for the five-minute freshness gate.
+            # which is the exchange server time, for the 30-minute freshness gate.
             ticker_by_id, missing_symbols, position_ticker_errors = (
                 _current_position_tickers(client, positions, server_ms)
             )

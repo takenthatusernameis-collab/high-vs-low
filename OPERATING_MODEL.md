@@ -4,7 +4,7 @@
 Independent 100 USDT forward-paper ledger: mexc-usdt-forward-high-low-100usdt-v1. It shares no state, events, balance or performance with Trend-Quality. Public MEXC Futures data only; no live orders, Testnet, credentials, private endpoints or wallet.
 
 ## Scheduler
-The GitHub Actions workflow runs every five minutes and at 00:01 UTC. The first invocation seeing a new completed UTC daily candle performs data refresh, ranking and one portfolio decision. The candle watermark makes it idempotent. Other invocations mark open positions, process confirmed funding, check combined risk and retry only a previously frozen pending daily shortlist. They do not recalculate rankings or resize/rebalance ordinary holdings.
+The GitHub Actions workflow runs every 30 minutes and at 00:01 UTC. The first invocation seeing a new completed UTC daily candle performs data refresh, ranking and one portfolio decision. The candle watermark makes it idempotent. Other invocations mark open positions, process confirmed funding, check combined risk and retry only a previously frozen pending daily shortlist. They do not recalculate rankings or resize/rebalance ordinary holdings.
 
 ## Universe
 Research includes every active MEXC linear perpetual with per-instrument cross-margin capability across categories and settlements. Preserve unknown categories. Executable positions are limited to quoteCoin=USDT and settleCoin=USDT. Never mix alternate collateral into USDT NAV.
@@ -20,7 +20,7 @@ For each completed daily close, ATH is the maximum daily high and ATL the minimu
 ## Sizing, costs and risk
 Each primary leg targets 1× NAV notional via 50% NAV margin at 2× leverage. Quantities are rounded down independently. Model depth-weighted fills, taker fees, slippage, confirmed settlement funding and all close/open costs.
 
-Retain the engineering reference's 3× ATR trailing stop and 25% combined portfolio daily drawdown latch. A stop on either leg closes both. Five-minute monitoring is sampled, not continuous. Missing marks do not create fabricated NAV. Emergency flatten remains latched until flat.
+Retain the engineering reference's 3× ATR trailing stop and 25% combined portfolio daily drawdown latch. A stop on either leg closes both. 30-minute monitoring is sampled, not continuous. Missing marks do not create fabricated NAV. Emergency flatten remains latched until flat.
 
 ## Inverse-volatility alternative
 The shadow path reuses primary symbols, sides and rebalance timestamps. At each rebalance it estimates the prior 30 common completed daily returns, weights the quieter leg more heavily and applies the volatility-matching overlay only if estimated pair volatility falls. Scale observed primary fees/funding by shadow notional. No separate decisions, fills, event journal or risk controls. Clearly disclose nonlinear impact, depth and leverage-cap limitations.
@@ -30,7 +30,7 @@ Source code on main, public data on market-data, paper events on state. All even
 
 ## First-run recovery handoff
 
-A new account generation uses two explicit stages, but they must complete in one workflow invocation. Stage one writes only a non-financial recovery probe and verifies the exact remote read-back. Stage two performs a separate checkout of the `state` branch into a new directory, verifies the full event chain and exact probe fields, and only then initializes the 100 USDT virtual account. Do not rely on a later five-minute cron tick to run stage two. The one-time activation path is restricted to a dedicated marker file and exact commit-message token; ordinary source pushes do not launch the paper workflow. The report identifies probe completion, account initialization, data/ranking completion, and pair entry as separate statuses.
+A new account generation uses two explicit stages, but they must complete in one workflow invocation. Stage one writes only a non-financial recovery probe and verifies the exact remote read-back. Stage two performs a separate checkout of the `state` branch into a new directory, verifies the full event chain and exact probe fields, and only then initializes the 100 USDT virtual account. Do not rely on a later 30-minute cron tick to run stage two. The one-time activation path is restricted to a dedicated marker file and exact commit-message token; ordinary source pushes do not launch the paper workflow. The report identifies probe completion, account initialization, data/ranking completion, and pair entry as separate statuses.
 
 ## Evidence
 Report public API checks, history coverage, tests, state recovery, account initialization, simulated fills and forward observations independently. Performance statistics remain unavailable until sample gates pass.

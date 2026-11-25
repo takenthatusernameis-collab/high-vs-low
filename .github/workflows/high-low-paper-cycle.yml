@@ -10,10 +10,10 @@ on:
     paths:
       - ".github/activations/high-low-first-run-once"
   schedule:
-    # Five-minute marking/risk monitoring plus retries of a pending frozen daily signal.
-    - cron: "*/5 * * * *"
+    # 30-minute marking/risk monitoring plus retries of a pending frozen daily signal.
+    - cron: "15,45 * * * *"
     # Dedicated UTC daily-close attempt; the candle watermark keeps this idempotent
-    # if a five-minute poll has already processed the same completed candle.
+    # if a 30-minute poll has already processed the same completed candle.
     - cron: "1 0 * * *"
   workflow_dispatch:
     inputs:
@@ -34,7 +34,7 @@ concurrency:
 jobs:
   cycle:
     if: ${{ (github.event_name != 'workflow_dispatch' || inputs.confirm_high_low_paper_account == 'I_CONFIRM_HIGH_LOW_100_USDT_PAPER_ONLY') && (github.event_name != 'push' || contains(github.event.head_commit.message, '[HIGH_LOW_BOOTSTRAP_AFTER_PROBE]')) }}
-    name: "ACTIVE HIGH-LOW $100 USDT PAPER ACCOUNT — daily full refresh / five-minute monitoring and retries"
+    name: "ACTIVE HIGH-LOW $100 USDT PAPER ACCOUNT — daily full refresh / 30-minute monitoring and retries"
     runs-on: ubuntu-24.04
     # 355-minute job ceiling; keep 15 minutes for durable checkpoint publication and reports.
     timeout-minutes: 355
@@ -62,7 +62,7 @@ jobs:
       # A new account generation first publishes a verified recovery probe.
       # The next invocation must read it from this fresh checkout before creating
       # financial paper state; the probe run itself never initializes capital.
-      # Five-minute snapshots never resize or neutral-rebalance open positions.
+      # 30-minute snapshots never resize or neutral-rebalance open positions.
       # They may retry the same frozen daily signal until its first successful full rebuild.
       - name: Check out immutable paper-event branch
         uses: actions/checkout@v4
@@ -81,7 +81,7 @@ jobs:
           python -m pip install -e .
       # MEXC Futures REST now uses api.mexc.com with 1.5-second minimum request pacing.
       # This is the sole active $100 USDT paper-account writer; no live orders are sent.
-      - name: Run High-Low ATH/ATL data, daily portfolio refresh and five-minute monitoring/retry cycle
+      - name: Run High-Low ATH/ATL data, daily portfolio refresh and 30-minute monitoring/retry cycle
         id: cycle
         working-directory: strategy
         shell: bash

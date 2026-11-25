@@ -1,6 +1,6 @@
 """Compact, incremental public market-data persistence for GitHub Actions.
 
-Daily candles are partitioned by UTC date; five-minute ticker observations are
+Daily candles are partitioned by UTC date; timestamped ticker observations are
 gzip-compressed into UTC-hour partitions. The manifest is atomic and records
 instrument lifecycle and per-instrument candle watermarks.
 """

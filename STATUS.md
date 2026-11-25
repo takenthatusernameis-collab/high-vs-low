@@ -7,7 +7,7 @@ Mode: paper-only
 Account: mexc-usdt-forward-high-low-100usdt-v1
 
 ## Implemented
-Independent package, public MEXC adapter, segmented history retrieval, market-data manifest provenance, ATH/ATL ranker, simulated execution, fees/funding/NAV accounting, combined risk controls, append-only state publisher, daily/five-minute cycle, paper status generator and inverse-volatility shadow curve.
+Independent package, public MEXC adapter, segmented history retrieval, market-data manifest provenance, ATH/ATL ranker, simulated execution, fees/funding/NAV accounting, combined risk controls, append-only state publisher, daily/30-minute cycle, paper status generator and inverse-volatility shadow curve.
 
 ## Verified engineering evidence
 - Hosted GitHub Actions CI: [run 45536468339](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45536468339), Ruff passed and 58 tests passed on main commit `de30332937b7685c515e5366a5ebff3ea70e6d95`.

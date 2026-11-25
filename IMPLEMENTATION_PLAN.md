@@ -5,7 +5,7 @@
 - [x] Replace Q/B selection with point-in-time ATH/ATL distance ranking.
 - [x] Add listing-date history provenance and independent 100 USDT account identity.
 - [x] Add inverse-30-day-volatility shadow curve using same pairs and rebalance timestamps.
-- [x] Add daily/five-minute paper workflow and status builder.
+- [x] Add daily/30-minute paper workflow and status builder.
 - [x] Add focused selector and inverse-volatility tests plus inherited infrastructure tests.
 - [x] Verify hosted CI and repair failures (Ruff passed; 51 tests passed in run 45384439303).
 - [x] Add immediate same-workflow continuation after a verified fresh-checkout state probe.

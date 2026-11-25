@@ -24,7 +24,7 @@ Repair the first-run recovery handoff so a successful non-financial probe automa
 4. Run the existing paper cycle again against that fresh checkout. It must independently validate the hash chain and exact probe fields before initializing the dedicated 100 USDT account.
 5. Continue the normal public-data bootstrap, listing-history capture, Option A ranking, two-sided simulated fill checks, account event publishing, market-data commit and status generation.
 6. Add a path-scoped one-time activation marker to start the already-probed account now. Do not trigger the paper workflow on arbitrary code pushes.
-7. Preserve the existing five-minute and daily schedules, one-writer concurrency lock, explicit manual confirmation, frozen strategy, separate account and shadow inverse-volatility path.
+7. Preserve the existing 30-minute recurring and daily-close schedules, one-writer concurrency lock, explicit manual confirmation, frozen strategy, separate account and shadow inverse-volatility path.
 8. If data, eligibility, sizing, liquidity, book freshness or simulated fills block a pair, report the precise gate and retain zero positions. Never fabricate positions or relax controls to force an entry.
 
 ## Acceptance criteria
