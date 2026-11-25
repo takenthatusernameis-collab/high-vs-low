@@ -28,4 +28,4 @@ Only the equal-notional path writes primary account state and drives risk contro
 - Monitoring: five-minute marks/risk and a 00:01 UTC daily-close backup.
 - Public unauthenticated data only. No credentials, private endpoints, Testnet or live orders.
 
-See IMPLEMENTATION_PROMPT.md, OPERATING_MODEL.md, MATHEMATICAL_REFERENCE.md, ASSUMPTIONS.md, DATA_DICTIONARY.md and RUNBOOK.md for the operating contract. No profitability claim is made.
+See IMPLEMENTATION_PROMPT.md, OPERATING_MODEL.md, MATHEMATICAL_REFERENCE.md, ASSUMPTIONS.md, DATA_DICTIONARY.md, RUNBOOK.md and FIRST_RUN_RECOVERY_DIRECTIVE.md for the operating contract. No profitability claim is made.
