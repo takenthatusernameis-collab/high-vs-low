@@ -8,10 +8,10 @@
 - Strategy generation: `high-low-ath-atl-cross-sectional-v1-100usdt`
 - Starting capital: **100.00000000 USDT**
 - Account state: **INITIALIZED — FORWARD PAPER**
-- Last report build: 2026-11-25 03:29:35 UTC
-- Latest workflow run: [45536591520](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45536591520) · run #2, attempt 1 · success · push
+- Last report build: 2026-11-25 07:42:44 UTC
+- Latest workflow run: [45570223334](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45570223334) · run #3, attempt 1 · success · schedule
 - Latest processed daily candle: 2026-11-24 00:00:00 UTC
-- Latest account event: 2026-11-25 03:29:06 UTC
+- Latest account event: 2026-11-25 07:42:33 UTC
 - Primary execution journal: [PAPER_TRADE_JOURNAL.md](PAPER_TRADE_JOURNAL.md)
 
 ## Current performance
@@ -19,17 +19,17 @@
 | Metric | Value |
 |---|---:|
 | Initial capital | 100.00000000 USDT |
-| **NAV** | **100.03187864 USDT** |
-| Total return | +0.032% |
+| **NAV** | **98.56757864 USDT** |
+| Total return | -1.432% |
 | Cash | 99.96017864 USDT |
-| Unrealized P&L | +0.07170000 USDT |
+| Unrealized P&L | -1.39260000 USDT |
 | Fees paid | 0.03982136 USDT |
 | Confirmed funding | +0.00000000 USDT |
-| Gross exposure | 1.990× NAV |
-| Net exposure | 0.007× NAV |
-| Current drawdown from risk-window peak | +0.000% |
-| Lifetime / cross-session maximum drawdown | +0.000% |
-| Worst risk-session maximum drawdown | +0.000% |
+| Gross exposure | 2.029× NAV |
+| Net exposure | 0.022× NAV |
+| Current drawdown from risk-window peak | -1.464% |
+| Lifetime / cross-session maximum drawdown | -1.464% |
+| Worst risk-session maximum drawdown | -1.464% |
 | Sharpe ratio | Unavailable — sample gate not met |
 | Sortino ratio | Unavailable — sample gate not met |
 | Annualized daily volatility | Unavailable — sample gate not met |
@@ -39,14 +39,14 @@
 | Session start (UTC) | Starting NAV | Latest NAV | Max drawdown | Marks |
 |---|---:|---:|---:|---:|
 | 2026-11-25 00:00:00 UTC | 100.00000000 | 100.00000000 | +0.000% | 1 |
-| 2026-11-25 03:29:24 UTC | 100.03187864 | 100.03187864 | +0.000% | 1 |
+| 2026-11-25 03:29:24 UTC | 100.03187864 | 98.56757864 | -1.464% | 2 |
 
 ## Open positions
 
 | Symbol | Side | Quantity | Entry price | Mark | Notional (USDT) |
 |---|---|---:|---:|---:|---:|
-| DISSTOCK_USDT | long | 0.81 | 122.4 | 122.39 | 99.135900 |
-| HYPER_USDT | short | 2660 | 0.03758 | 0.03755 | 99.883000 |
+| DISSTOCK_USDT | long | 0.81 | 122.4 | 122.06 | 98.868600 |
+| HYPER_USDT | short | 2660 | 0.03758 | 0.038 | 101.080000 |
 
 ## Primary path — equal exposure
 
