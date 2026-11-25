@@ -98,7 +98,7 @@ jobs:
               Path("../market-data/data/reports/mexc/latest_cycle.json").read_text(encoding="utf-8")
           )
           with open(__import__("os").environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"mode={report.get('mode', 'UNKNOWN')}\\n")
+              output.write(f"mode={report.get('mode', 'UNKNOWN')}\n")
           PY
       # A first-ever invocation deliberately writes only the non-financial probe.
       # Do not wait for another cron tick: fetch the published probe into a distinct,
