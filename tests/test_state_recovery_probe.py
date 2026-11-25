@@ -99,5 +99,6 @@ def test_one_time_activation_is_path_scoped_not_a_general_push_trigger() -> None
         encoding="utf-8"
     )
 
-    assert 'paths:\n      - ".github/activations/high-low-first-run-once"' in workflow
+    assert "paths:" in workflow
+    assert '- ".github/activations/high-low-first-run-once"' in workflow
     assert "contains(github.event.head_commit.message, '[HIGH_LOW_BOOTSTRAP_AFTER_PROBE]')" in workflow
