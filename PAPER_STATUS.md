@@ -7,11 +7,11 @@
 - Account: `mexc-usdt-forward-high-low-100usdt-v1`
 - Strategy generation: `high-low-ath-atl-cross-sectional-v1-100usdt`
 - Starting capital: **100.00000000 USDT**
-- Account state: **READY — WAITING FOR FIRST FINANCIAL PAPER EVENT**
-- Last report build: 2026-11-24 21:23:19 UTC
-- Latest workflow run: [45490491168](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45490491168) · run #1, attempt 1 · success · schedule
-- Latest processed daily candle: —
-- Latest account event: —
+- Account state: **INITIALIZED — FORWARD PAPER**
+- Last report build: 2026-11-25 03:29:35 UTC
+- Latest workflow run: [45536591520](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45536591520) · run #2, attempt 1 · success · push
+- Latest processed daily candle: 2026-11-24 00:00:00 UTC
+- Latest account event: 2026-11-25 03:29:06 UTC
 - Primary execution journal: [PAPER_TRADE_JOURNAL.md](PAPER_TRADE_JOURNAL.md)
 
 ## Current performance
@@ -19,17 +19,17 @@
 | Metric | Value |
 |---|---:|
 | Initial capital | 100.00000000 USDT |
-| **NAV** | **100.00000000 USDT** |
-| Total return | +0.000% |
-| Cash | 100.00000000 USDT |
-| Unrealized P&L | +0.00000000 USDT |
-| Fees paid | 0.00000000 USDT |
+| **NAV** | **100.03187864 USDT** |
+| Total return | +0.032% |
+| Cash | 99.96017864 USDT |
+| Unrealized P&L | +0.07170000 USDT |
+| Fees paid | 0.03982136 USDT |
 | Confirmed funding | +0.00000000 USDT |
-| Gross exposure | 0.000× NAV |
-| Net exposure | 0.000× NAV |
+| Gross exposure | 1.990× NAV |
+| Net exposure | 0.007× NAV |
 | Current drawdown from risk-window peak | +0.000% |
-| Lifetime / cross-session maximum drawdown | Unavailable — no account observations yet |
-| Worst risk-session maximum drawdown | Unavailable — no account observations yet |
+| Lifetime / cross-session maximum drawdown | +0.000% |
+| Worst risk-session maximum drawdown | +0.000% |
 | Sharpe ratio | Unavailable — sample gate not met |
 | Sortino ratio | Unavailable — sample gate not met |
 | Annualized daily volatility | Unavailable — sample gate not met |
@@ -38,13 +38,15 @@
 
 | Session start (UTC) | Starting NAV | Latest NAV | Max drawdown | Marks |
 |---|---:|---:|---:|---:|
-| No risk sessions observed | — | — | — | 0 |
+| 2026-11-25 00:00:00 UTC | 100.00000000 | 100.00000000 | +0.000% | 1 |
+| 2026-11-25 03:29:24 UTC | 100.03187864 | 100.03187864 | +0.000% | 1 |
 
 ## Open positions
 
 | Symbol | Side | Quantity | Entry price | Mark | Notional (USDT) |
 |---|---|---:|---:|---:|---:|
-| No open positions yet | — | — | — | — | — |
+| DISSTOCK_USDT | long | 0.81 | 122.4 | 122.39 | 99.135900 |
+| HYPER_USDT | short | 2660 | 0.03758 | 0.03755 | 99.883000 |
 
 ## Primary path — equal exposure
 
@@ -58,10 +60,10 @@ This chart is a **visual-only counterfactual**, not an executed account. It reus
 
 At each rebalance, the quieter leg receives the larger share using inverse 30-completed-day realized volatility. The leverage overlay is the ratio of equal-exposure pair volatility to the inverse-volatility pair’s base estimated volatility. It increases modeled gross exposure only when the alternative has lower estimated volatility. Estimates use only data available at that rebalance.
 
-- Latest long / short allocation: **50.0% / 50.0%** of alternative gross notional.
-- Latest volatility-matching leverage multiplier: **1.000×**.
-- Estimated base volatility reduction before leverage: **+0.00%**.
-- Volatility observations used: **0**; status: `AWAITING_FIRST_PAIR`.
+- Latest long / short allocation: **74.1% / 25.9%** of alternative gross notional.
+- Latest volatility-matching leverage multiplier: **1.489×**.
+- Estimated base volatility reduction before leverage: **+32.86%**.
+- Volatility observations used: **30**; status: `RISK_MATCHED_INVERSE_VOLATILITY`.
 
 ![Inverse-volatility alternative equity curve](alternative_path_equity_curve.svg)
 
@@ -69,7 +71,7 @@ At each rebalance, the quieter leg receives the larger share using inverse 30-co
 
 ## Next workflow action
 
-The next eligible cycle can process the latest genuine completed UTC daily candle; the new account has no consumed-candle watermark.
+The next daily decision requires a newer completed UTC candle and a passing data-coverage gate.
 
 The daily-candle watermark is not advanced by this report. Only the paper workflow can consume a completed candle after full-history and execution gates pass. A blocked or incomplete run remains visible.
 
