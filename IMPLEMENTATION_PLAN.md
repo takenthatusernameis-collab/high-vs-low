@@ -11,6 +11,7 @@
 - [x] Add immediate same-workflow continuation after a verified fresh-checkout state probe.
 - [x] Add a path-scoped one-time activation path for the already-published probe; ordinary pushes are not paper triggers.
 - [x] Add recovery-probe validation and workflow handoff regression tests (hosted CI pending).
+- [x] Implement immediate same-workflow continuation after a verified state probe and a path-scoped one-time activation trigger (58 hosted tests passed).
 - [ ] Verify hosted MEXC public preflight and full-universe history capture.
 - [ ] Verify recovery probe/read-back and fresh-checkout account initialization.
 - [ ] Reconcile first two-sided simulated fill, fees, funding and NAV.
