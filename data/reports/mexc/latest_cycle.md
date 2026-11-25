@@ -1,6 +1,93 @@
-# MEXC State Persistence Probe
+# MEXC High-Low ATH/ATL Paper Research
 
-- Status: publisher write/read-back succeeded
-- Financial account initialized: no
-- Orders submitted: 0
-- Next invocation must verify this event from a fresh state-branch checkout
+- Run (UTC): 2026-11-25T03:29:29.183650+00:00
+- Active cross-margin USDT perpetuals: 1082
+- Bootstrap remaining: 0
+- History coverage gate: True
+- State write mode: UNPROTECTED_SINGLE_WRITER_APPEND_ONLY
+- Paper simulation enabled: True
+- Decision: PAIR_REBUILT
+
+## Research long ranking — closest to ATH
+
+| Symbol | Distance (%) | Extreme price |
+|---|---:|---:|
+| BIIBSTOCK_USDT | 0.014817558807186515 | 269.99 |
+| TAKEDASTOCK_USDT | 0.04481290611696168 | 44.65 |
+| TGTSTOCK_USDT | 0.48888636234438065 | 176.77 |
+| DISSTOCK_USDT | 0.7346938775510204 | 123.4 |
+| GILDSTOCK_USDT | 0.7634444818681936 | 179.5 |
+| INDA_USDT | 0.8694008694008694 | 53.37 |
+| WMSTOCK_USDT | 0.9797118014450749 | 247.37 |
+| USDC_USDT | 1.1011411099342512 | 1.0118 |
+| REGNSTOCK_USDT | 1.2590182486914698 | 1002.12 |
+| IBB_USDT | 1.5480158911365816 | 222.38 |
+| PGRSTOCK_USDT | 1.816415325476281 | 241.03 |
+| SONYSTOCK_USDT | 1.8731988472622478 | 28.28 |
+| AAPLSTOCK_USDT | 2.0427768202751957 | 361.16 |
+| WMTSTOCK_USDT | 2.374111598366853 | 135.4 |
+| TLT_USDT | 2.425281724644782 | 83.62 |
+| HDSTOCK_USDT | 2.54659792646309 | 362.01 |
+| MDLZSTOCK_USDT | 2.7139874739039667 | 68.88 |
+| STRCSTOCK_USDT | 2.8588994774054717 | 100.38 |
+| CBSTOCK_USDT | 3.2303974221267455 | 384.43 |
+| COSTSTOCK_USDT | 3.305769971214316 | 1126.88 |
+
+## Research short ranking — closest to ATL
+
+| Symbol | Distance (%) | Extreme price |
+|---|---:|---:|
+| HYPER_USDT | 0.026260504201680673 | 0.03808 |
+| SPK_USDT | 0.08779631255487269 | 0.01139 |
+| CGPT_USDT | 0.24311183144246354 | 0.01234 |
+| CLANKER_USDT | 0.3024193548387097 | 9.92 |
+| SHELSTOCK_USDT | 0.3238691568606283 | 92.63 |
+| BANK_USDT | 0.33444816053511706 | 0.01495 |
+| MANTA_USDT | 0.351288056206089 | 0.03416 |
+| DJTSTOCK_USDT | 0.3568487510293714 | 3.643 |
+| XPD_USDT | 0.3677500700476324 | 856.56 |
+| MANTRA_USDT | 0.4851425106124924 | 0.001649 |
+| WLFI_USD1 | 0.5037783375314862 | 0.0397 |
+| XPT_USDT | 0.5203625244656852 | 1272.19 |
+| WLFI_USDT | 0.5259203606311045 | 0.03993 |
+| 0G_USDT | 0.5452562704471101 | 0.0917 |
+| ZORA_USDT | 0.5508982035928144 | 0.004175 |
+| WLFI_USDC | 0.6279829188646069 | 0.03981 |
+| PROVE_USDT | 0.6369426751592356 | 0.1256 |
+| STO_USDT | 0.6625891946992865 | 0.01962 |
+| ALUMINUM_USDT | 0.66665207909382 | 2742.06 |
+| ZKP_USDT | 0.6854531607006854 | 0.02626 |
+
+## Data completeness
+
+- Ticker coverage: 1164
+- Missing latest daily bars: 0
+- All-time history verified: 906
+- All-time history unverified: 258
+- Observed missing daily timestamps: 2658
+- Missing provider listing timestamps: 0
+- API failures: 0
+- Excluded/unranked records sampled: 50
+
+## Portfolio accounting
+
+- Currency: USDT
+- Cash: 99.960178640
+- NAV: 100.031878640
+- Realized gross P&L: 0
+- Unrealized P&L: 0.071700000
+- Fees paid: 0.039821360
+- Confirmed funding: 0
+- Gross exposure: 1.989554757001412644868028043
+- Net exposure: -0.007468619105802290068837199637
+- Open positions: 2
+- Closed trades: 0
+- Performance report status: INSUFFICIENT_DAILY_EQUITY_HISTORY
+
+## Daily equity curve
+
+| UTC daily bar | NAV (USDT) |
+|---|---:|
+| 2026-11-24T00:00:00+00:00 | 100.031878640 |
+
+No exchange orders were submitted. All execution records are simulated.
