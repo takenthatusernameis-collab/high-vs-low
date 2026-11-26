@@ -8,10 +8,10 @@
 - Strategy generation: `high-low-ath-atl-cross-sectional-v1-100usdt`
 - Starting capital: **100.00000000 USDT**
 - Account state: **INITIALIZED — FORWARD PAPER**
-- Last report build: 2026-11-25 23:19:49 UTC
-- Latest workflow run: [45720432322](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45720432322) · run #5, attempt 1 · success · schedule
-- Latest processed daily candle: 2026-11-24 00:00:00 UTC
-- Latest account event: 2026-11-25 23:19:37 UTC
+- Last report build: 2026-11-26 06:19:11 UTC
+- Latest workflow run: [45761831837](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45761831837) · run #6, attempt 1 · success · schedule
+- Latest processed daily candle: 2026-11-25 00:00:00 UTC
+- Latest account event: 2026-11-26 06:18:34 UTC
 - Primary execution journal: [PAPER_TRADE_JOURNAL.md](PAPER_TRADE_JOURNAL.md)
 
 ## Current performance
@@ -19,20 +19,20 @@
 | Metric | Value |
 |---|---:|
 | Initial capital | 100.00000000 USDT |
-| **NAV** | **98.03257864 USDT** |
-| Total return | -1.967% |
-| Cash | 99.96017864 USDT |
-| Unrealized P&L | -1.92760000 USDT |
-| Fees paid | 0.03982136 USDT |
+| **NAV** | **97.03328978 USDT** |
+| Total return | -2.967% |
+| Cash | 97.10018978 USDT |
+| Unrealized P&L | -0.06690000 USDT |
+| Fees paid | 0.12011022 USDT |
 | Confirmed funding | +0.00000000 USDT |
-| Gross exposure | 2.107× NAV |
-| Net exposure | 0.028× NAV |
-| Current drawdown from risk-window peak | -4.701% |
-| Lifetime / cross-session maximum drawdown | -4.701% |
+| Gross exposure | 1.991× NAV |
+| Net exposure | 0.010× NAV |
+| Current drawdown from risk-window peak | +0.000% |
+| Lifetime / cross-session maximum drawdown | -5.673% |
 | Worst risk-session maximum drawdown | -4.701% |
-| Sharpe ratio | Unavailable — sample gate not met |
-| Sortino ratio | Unavailable — sample gate not met |
-| Annualized daily volatility | Unavailable — sample gate not met |
+| Sharpe ratio | Unavailable — At least 30 daily returns are required |
+| Sortino ratio | Unavailable — Requires at least 20 daily returns and 5 negative daily returns |
+| Annualized daily volatility | Unavailable — At least 30 daily returns are required |
 
 ### Maximum drawdown by risk session
 
@@ -40,13 +40,15 @@
 |---|---:|---:|---:|---:|
 | 2026-11-25 00:00:00 UTC | 100.00000000 | 100.00000000 | +0.000% | 1 |
 | 2026-11-25 03:29:24 UTC | 100.03187864 | 98.03257864 | -4.701% | 4 |
+| 2026-11-26 00:00:00 UTC | 97.17007864 | 97.17007864 | +0.000% | 1 |
+| 2026-11-26 06:18:57 UTC | 97.03328978 | 97.03328978 | +0.000% | 1 |
 
 ## Open positions
 
 | Symbol | Side | Quantity | Entry price | Mark | Notional (USDT) |
 |---|---|---:|---:|---:|---:|
-| DISSTOCK_USDT | long | 0.81 | 122.4 | 125.8 | 101.898000 |
-| HYPER_USDT | short | 2660 | 0.03758 | 0.03934 | 104.644400 |
+| DISSTOCK_USDT | long | 0.76 | 126.42 | 126.41 | 96.071600 |
+| MITSUBISHISTOCK_USDT | short | 5.93 | 16.36 | 16.37 | 97.074100 |
 
 ## Primary path — equal exposure
 
@@ -60,9 +62,9 @@ This chart is a **visual-only counterfactual**, not an executed account. It reus
 
 At each rebalance, the quieter leg receives the larger share using inverse 30-completed-day realized volatility. The leverage overlay is the ratio of equal-exposure pair volatility to the inverse-volatility pair’s base estimated volatility. It increases modeled gross exposure only when the alternative has lower estimated volatility. Estimates use only data available at that rebalance.
 
-- Latest long / short allocation: **74.1% / 25.9%** of alternative gross notional.
-- Latest volatility-matching leverage multiplier: **1.489×**.
-- Estimated base volatility reduction before leverage: **+32.86%**.
+- Latest long / short allocation: **64.7% / 35.3%** of alternative gross notional.
+- Latest volatility-matching leverage multiplier: **1.151×**.
+- Estimated base volatility reduction before leverage: **+13.09%**.
 - Volatility observations used: **30**; status: `RISK_MATCHED_INVERSE_VOLATILITY`.
 
 ![Inverse-volatility alternative equity curve](alternative_path_equity_curve.svg)
