@@ -58002,10 +58002,10 @@
   "last_daily_workflow_bar_ms": 1795564800000,
   "last_processed_daily_bar_ms": 1795564800000,
   "last_research_daily_bar_ms": 1795564800000,
-  "last_snapshot_ms": 1795687239520,
+  "last_snapshot_ms": 1795687288999,
   "last_state_recovery_probe_ms": 1795555392595,
   "provider": "mexc",
   "schema_version": 1,
   "selected_provider": "mexc",
-  "updated_at_ms": 1795687239520
+  "updated_at_ms": 1795687288999
 }
