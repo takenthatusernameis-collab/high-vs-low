@@ -1,5 +1,5 @@
 {
-  "last_run_utc": "2026-11-27T07:31:08.990000+00:00",
+  "last_run_utc": "2026-11-27T09:05:55.056000+00:00",
   "portfolio_state": {
     "account_id": "mexc-usdt-forward-high-low-100usdt-v1",
     "cash": "92.14201514000000000000000002",
@@ -346,13 +346,32 @@
         "short_notional_usdt": "92.4177",
         "timestamp_ms": 1795764668990,
         "utc_date": "2026-11-27"
+      },
+      {
+        "daily_drawdown_pct": "-1.490206995492181091613233510",
+        "daily_peak_nav": "92.04761514000000000000000002",
+        "daily_return_pct": "-6.444724587273365179466357400",
+        "daily_starting_nav": "96.922289780",
+        "daily_starting_reference": "previous_utc_day_last_snapshot",
+        "drawdown_window_reference": "daily_portfolio_full_refresh",
+        "drawdown_window_starting_nav": "92.04761514000000000000000002",
+        "emergency_stop_flattened": false,
+        "emergency_stop_newly_triggered": false,
+        "emergency_stop_triggered": false,
+        "gross_exposure": "2.021693409070787129416778445",
+        "long_notional_usdt": "90.9549",
+        "nav": "90.67591514000000000000000002",
+        "roi_pct": "-9.324084859999999999999999980",
+        "short_notional_usdt": "92.364",
+        "timestamp_ms": 1795770355056,
+        "utc_date": "2026-11-27"
       }
     ],
     "fees_paid": "0.196484860",
     "initial_capital": "100",
     "last_decision_attempt_daily_bar_ms": 1795651200000,
     "last_processed_daily_bar_ms": 1795651200000,
-    "last_snapshot_ms": 1795764668990,
+    "last_snapshot_ms": 1795770355056,
     "partial_realized_net_pnls": [],
     "pending_entry_signal": null,
     "positions": [
@@ -365,7 +384,7 @@
         "initial_margin_usdt": "46.0494",
         "instrument_id": 2305,
         "last_funding_timestamp_ms": 1795741447868,
-        "last_mark_price": "46.2",
+        "last_mark_price": "46.17",
         "leverage": "2",
         "lowest_since_entry": "46.75065989847715736040609137",
         "quantity": "1.97",
@@ -383,7 +402,7 @@
         "initial_margin_usdt": "46.0209",
         "instrument_id": 2252,
         "last_funding_timestamp_ms": 1795741447868,
-        "last_mark_price": "17.21",
+        "last_mark_price": "17.2",
         "leverage": "2",
         "lowest_since_entry": "17.14",
         "quantity": "5.37",
@@ -397,13 +416,13 @@
     "schema_version": 1,
     "status": "INITIALIZED_PAPER_ONLY",
     "strategy_id": "high-low-ath-atl-cross-sectional-v1-100usdt",
-    "unresolved_funding_count": 0
+    "unresolved_funding_count": 2
   },
   "schema_version": 1,
   "state_event": {
-    "batch_hash": "e8e542ee55cb1775f51a60723027a548d75e4dfe3eb69c8ec976c3d5d47620a4",
-    "commit_sha": "ec31695c07098a2a63c2aa07d20cad34768ec245",
+    "batch_hash": "a5c81146e86d42dfec30d7bca9ac0425f57b1210245c7ef534c3e693dbb0dc28",
+    "commit_sha": "ea782bfcefb87ed0a0277fdf1836449eee9007d7",
     "created": true,
-    "path": "events/2026/11/snapshot-1795764668990.json"
+    "path": "events/2026/11/snapshot-1795770355056.json"
   }
 }
