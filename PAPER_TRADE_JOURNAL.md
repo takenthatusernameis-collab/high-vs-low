@@ -5,9 +5,9 @@
 - Account: `mexc-usdt-forward-high-low-100usdt-v1`
 - Strategy generation: `high-low-ath-atl-cross-sectional-v1-100usdt`
 - Starting capital: **100.00000000 USDT**
-- Generated: 2026-11-26 15:48:21 UTC
-- Latest workflow: [45852606587](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45852606587)
-- Recorded primary events: **6**
+- Generated: 2026-11-27 01:04:22 UTC
+- Latest workflow: [45917455889](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/45917455889)
+- Recorded primary events: **10**
 
 | Timestamp (UTC) | Symbol | Side | Action | Quantity | Price | Fee (USDT) | Realized net P&L (USDT) | Funding (USDT) | Event ID |
 |---|---|---|---|---:|---:|---:|---:|---:|---|
@@ -17,5 +17,9 @@
 | 2026-11-26 06:18:34 UTC | HYPER_USDT | short | CLOSED | 2660 | 0.03758 | 0.019992560 | — | — | `daily_portfolio_decision-daily-1795564800000` |
 | 2026-11-26 06:18:57 UTC | DISSTOCK_USDT | long | OPENED | 0.76 | 126.42 | 0.01921584 | — | — | `daily_portfolio_decision-daily-1795564800000` |
 | 2026-11-26 06:18:57 UTC | MITSUBISHISTOCK_USDT | short | OPENED | 5.93 | 16.36 | 0.01940296 | — | — | `daily_portfolio_decision-daily-1795564800000` |
+| 2026-11-27 01:03:47 UTC | DISSTOCK_USDT | long | CLOSED | 0.76 | 126.42 | 0.01921584 | — | — | `daily_portfolio_decision-daily-1795651200000` |
+| 2026-11-27 01:03:47 UTC | MITSUBISHISTOCK_USDT | short | CLOSED | 5.93 | 16.36 | 0.01940296 | — | — | `daily_portfolio_decision-daily-1795651200000` |
+| 2026-11-27 01:04:07 UTC | TAKEDASTOCK_USDT | long | OPENED | 1.97 | 46.75065989847715736040609137 | 0.01841976 | — | — | `daily_portfolio_decision-daily-1795651200000` |
+| 2026-11-27 01:04:07 UTC | MITSUBISHISTOCK_USDT | short | OPENED | 5.37 | 17.14 | 0.01840836 | — | — | `daily_portfolio_decision-daily-1795651200000` |
 
 This journal covers only the primary paper account. The inverse-volatility alternative path has no separate trade journal, positions or event stream.
