@@ -8,10 +8,10 @@
 - Strategy generation: `high-low-ath-atl-cross-sectional-v1-100usdt`
 - Starting capital: **100.00000000 USDT**
 - Account state: **INITIALIZED — FORWARD PAPER**
-- Last report build: 2026-11-27 18:56:25 UTC
-- Latest workflow run: [46053027661](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/46053027661) · run #16, attempt 1 · success · schedule
+- Last report build: 2026-11-28 02:26:59 UTC
+- Latest workflow run: [46095613737](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/46095613737) · run #17, attempt 1 · failure · schedule
 - Latest processed daily candle: 2026-11-26 00:00:00 UTC
-- Latest account event: 2026-11-27 18:56:08 UTC
+- Latest account event: 2026-11-28 02:26:34 UTC
 - Primary execution journal: [PAPER_TRADE_JOURNAL.md](PAPER_TRADE_JOURNAL.md)
 
 ## Current performance
@@ -19,16 +19,16 @@
 | Metric | Value |
 |---|---:|
 | Initial capital | 100.00000000 USDT |
-| **NAV** | **90.56311514 USDT** |
-| Total return | -9.437% |
+| **NAV** | **90.54881514 USDT** |
+| Total return | -9.451% |
 | Cash | 92.14201514 USDT |
-| Unrealized P&L | -1.57890000 USDT |
+| Unrealized P&L | -1.59320000 USDT |
 | Fees paid | 0.19648486 USDT |
 | Confirmed funding | +0.00000000 USDT |
-| Gross exposure | 2.024× NAV |
+| Gross exposure | 2.025× NAV |
 | Net exposure | 0.017× NAV |
-| Current drawdown from risk-window peak | -1.613% |
-| Lifetime / cross-session maximum drawdown | -11.962% |
+| Current drawdown from risk-window peak | -0.016% |
+| Lifetime / cross-session maximum drawdown | -11.976% |
 | Worst risk-session maximum drawdown | -4.701% |
 | Sharpe ratio | Unavailable — At least 30 daily returns are required |
 | Sortino ratio | Unavailable — Requires at least 20 daily returns and 5 negative daily returns |
@@ -44,13 +44,14 @@
 | 2026-11-26 06:18:57 UTC | 97.03328978 | 96.92228978 | -0.274% | 7 |
 | 2026-11-27 00:00:00 UTC | 92.29388978 | 92.29388978 | +0.000% | 1 |
 | 2026-11-27 01:04:07 UTC | 92.04761514 | 90.56311514 | -1.613% | 4 |
+| 2026-11-28 00:00:00 UTC | 90.56311514 | 90.54881514 | -0.016% | 1 |
 
 ## Open positions
 
 | Symbol | Side | Quantity | Entry price | Mark | Notional (USDT) |
 |---|---|---:|---:|---:|---:|
-| TAKEDASTOCK_USDT | long | 1.97 | 46.75065989847715736040609137 | 46.14 | 90.895800 |
-| MITSUBISHISTOCK_USDT | short | 5.37 | 17.14 | 17.21 | 92.417700 |
+| TAKEDASTOCK_USDT | long | 1.97 | 46.75065989847715736040609137 | 46.16 | 90.935200 |
+| MITSUBISHISTOCK_USDT | short | 5.37 | 17.14 | 17.22 | 92.471400 |
 
 ## Primary path — equal exposure
 
