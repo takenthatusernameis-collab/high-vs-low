@@ -1,6 +1,6 @@
 # MEXC High-Low ATH/ATL Paper Research
 
-- Run (UTC): 2026-11-28T06:59:01.370000+00:00
+- Run (UTC): 2026-11-28T10:21:40.745000+00:00
 - Active cross-margin USDT perpetuals: not refreshed in snapshot mode
 - Bootstrap remaining: not refreshed in snapshot mode
 - History coverage gate: not checked in snapshot mode

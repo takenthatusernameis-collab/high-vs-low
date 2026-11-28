@@ -7,9 +7,9 @@
   "emergency_exits": [],
   "emergency_risk_status": "UNAVAILABLE_STALE_OR_MISSING_POSITION_MARK",
   "entry_retry": {
-    "attempt_count": 1,
+    "attempt_count": 2,
     "daily_bar_timestamp_ms": 1795737600000,
-    "error": "ExecutionImpactExceeded: Modeled shortfall 11.15804925607502962825209200 bps exceeds limit 10 bps",
+    "error": "ExecutionImpactExceeded: Modeled shortfall 10.83893344894862345545198400 bps exceeds limit 10 bps",
     "status": "RETRY_EXECUTION_BLOCKED"
   },
   "excluded_or_unranked_sample": [],
@@ -37,20 +37,20 @@
   "portfolio": null,
   "portfolio_snapshot": null,
   "position_ticker_errors": [
-    "TAKEDASTOCK_USDT: ticker failed freshness gate (timestamp_ms=1795849148043, age_ms=-6673, mark_price=46.13)",
-    "MITSUBISHISTOCK_USDT: ticker failed freshness gate (timestamp_ms=1795849148043, age_ms=-6673, mark_price=17.19)"
+    "TAKEDASTOCK_USDT: ticker failed freshness gate (timestamp_ms=1795861308825, age_ms=-8080, mark_price=46.13)",
+    "MITSUBISHISTOCK_USDT: ticker failed freshness gate (timestamp_ms=1795861308825, age_ms=-8080, mark_price=17.2)"
   ],
   "private_endpoints_used": false,
   "provider": "mexc",
   "research_long_top": [],
   "research_refresh_performed": false,
   "research_short_top": [],
-  "run_utc": "2026-11-28T06:59:01.370000+00:00",
+  "run_utc": "2026-11-28T10:21:40.745000+00:00",
   "state_event": {
-    "batch_hash": "78b0a4f5acc2a7a33fe25c5b0aef6bc19ce7bd0741bd5e7944038037fc87a442",
-    "commit_sha": "074930d9c03d9363c035baf68a420f3b17147e3a",
+    "batch_hash": "308be086f09e370ee087f29d2209ff269e58fb9733266577c75f7f63d03ee22d",
+    "commit_sha": "e683501d82725612c6fcf7ef93025f31146dc37f",
     "created": true,
-    "path": "events/2026/11/snapshot-1795849141370.json"
+    "path": "events/2026/11/snapshot-1795861300745.json"
   },
   "state_write_mode": "UNPROTECTED_SINGLE_WRITER_APPEND_ONLY",
   "ticker_coverage": 0,
