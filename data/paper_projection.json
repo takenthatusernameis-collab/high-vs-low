@@ -1,5 +1,5 @@
 {
-  "last_run_utc": "2026-11-27T18:56:08.075000+00:00",
+  "last_run_utc": "2026-11-28T02:26:34.150000+00:00",
   "portfolio_state": {
     "account_id": "mexc-usdt-forward-high-low-100usdt-v1",
     "cash": "92.14201514000000000000000002",
@@ -26,21 +26,19 @@
       }
     ],
     "daily_risk": {
-      "calendar_day_starting_nav": "96.922289780",
+      "calendar_day_starting_nav": "90.56311514000000000000000002",
       "calendar_day_starting_reference": "previous_utc_day_last_snapshot",
       "flatten_attempts": 0,
       "flattened": false,
-      "peak_nav": "92.04761514000000000000000002",
-      "peak_timestamp_ms": 1795741447868,
-      "risk_window_reset_at_ms": 1795741447868,
-      "risk_window_reset_reason": "daily_portfolio_full_refresh",
-      "starting_nav": "92.04761514000000000000000002",
-      "starting_reference": "daily_portfolio_full_refresh",
-      "starting_timestamp_ms": 1795741447868,
+      "peak_nav": "90.56311514000000000000000002",
+      "peak_timestamp_ms": 1795824000000,
+      "starting_nav": "90.56311514000000000000000002",
+      "starting_reference": "previous_utc_day_last_snapshot",
+      "starting_timestamp_ms": 1795824000000,
       "stop_reason": null,
       "stop_triggered": false,
       "stop_triggered_at_ms": null,
-      "utc_date": "2026-11-27"
+      "utc_date": "2026-11-28"
     },
     "equity_curve": [
       {
@@ -384,15 +382,262 @@
         "short_notional_usdt": "92.4177",
         "timestamp_ms": 1795805768075,
         "utc_date": "2026-11-27"
+      },
+      {
+        "daily_drawdown_pct": "-0.0157900928848282989837975200",
+        "daily_peak_nav": "90.56311514000000000000000002",
+        "daily_return_pct": "-0.0157900928848282989837975200",
+        "daily_starting_nav": "90.56311514000000000000000002",
+        "daily_starting_reference": "previous_utc_day_last_snapshot",
+        "drawdown_window_reference": "previous_utc_day_last_snapshot",
+        "drawdown_window_starting_nav": "90.56311514000000000000000002",
+        "emergency_stop_flattened": false,
+        "emergency_stop_newly_triggered": false,
+        "emergency_stop_triggered": false,
+        "gross_exposure": "2.025499723176167890825920751",
+        "long_notional_usdt": "90.9352",
+        "nav": "90.54881514000000000000000002",
+        "roi_pct": "-9.451184859999999999999999980",
+        "short_notional_usdt": "92.4714",
+        "timestamp_ms": 1795832794150,
+        "utc_date": "2026-11-28"
       }
     ],
     "fees_paid": "0.196484860",
     "initial_capital": "100",
-    "last_decision_attempt_daily_bar_ms": 1795651200000,
+    "last_decision_attempt_daily_bar_ms": 1795737600000,
     "last_processed_daily_bar_ms": 1795651200000,
-    "last_snapshot_ms": 1795805768075,
+    "last_snapshot_ms": 1795832794150,
     "partial_realized_net_pnls": [],
-    "pending_entry_signal": null,
+    "pending_entry_signal": {
+      "attempt_count": 0,
+      "daily_bar_timestamp_ms": 1795737600000,
+      "executable_longs": [
+        {
+          "candidate_key": "mexc:1919",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "0.1408781404085466",
+          "extreme_price": "127.95",
+          "extreme_timestamp_ms": 1795737600000,
+          "instrument_id": 1919,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1362",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "0.5736563631300473",
+          "extreme_price": "361.16",
+          "extreme_timestamp_ms": 1794528000000,
+          "instrument_id": 1362,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:2149",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "0.7691012182114186",
+          "extreme_price": "179.5",
+          "extreme_timestamp_ms": 1795478400000,
+          "instrument_id": 2149,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:335",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "1.13145690068767",
+          "extreme_price": "1.0118",
+          "extreme_timestamp_ms": 1713830400000,
+          "instrument_id": 335,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1658",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "1.3355766653762544",
+          "extreme_price": "680.59",
+          "extreme_timestamp_ms": 1793836800000,
+          "instrument_id": 1658,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:2058",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "1.4041822406303668",
+          "extreme_price": "100.38",
+          "extreme_timestamp_ms": 1790726400000,
+          "instrument_id": 2058,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1681",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "1.598259173107226",
+          "extreme_price": "135.4",
+          "extreme_timestamp_ms": 1779235200000,
+          "instrument_id": 1681,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:2248",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "1.6176217518499398",
+          "extreme_price": "59.05",
+          "extreme_timestamp_ms": 1795737600000,
+          "instrument_id": 2248,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:2273",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "1.6641108649968763",
+          "extreme_price": "179.0",
+          "extreme_timestamp_ms": 1795564800000,
+          "instrument_id": 2273,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:2501",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "long",
+          "distance_pct": "1.7129356172474897",
+          "extreme_price": "68.88",
+          "extreme_timestamp_ms": 1794787200000,
+          "instrument_id": 2501,
+          "semi_cycle_direction": null
+        }
+      ],
+      "executable_shorts": [
+        {
+          "candidate_key": "mexc:1435",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "0.30846887268648343",
+          "extreme_price": "0.03566",
+          "extreme_timestamp_ms": 1795737600000,
+          "instrument_id": 1435,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1154",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "0.6125574272588055",
+          "extreme_price": "0.01959",
+          "extreme_timestamp_ms": 1794700800000,
+          "instrument_id": 1154,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1822",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "1.1822215040178636",
+          "extreme_price": "2722.84",
+          "extreme_timestamp_ms": 1795564800000,
+          "instrument_id": 1822,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1153",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "1.426322126516625",
+          "extreme_price": "1.0797",
+          "extreme_timestamp_ms": 1760054400000,
+          "instrument_id": 1153,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1824",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "1.9210966306068893",
+          "extreme_price": "1806.26",
+          "extreme_timestamp_ms": 1795392000000,
+          "instrument_id": 1824,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:2469",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "3.167910044329117",
+          "extreme_price": "92.49",
+          "extreme_timestamp_ms": 1795564800000,
+          "instrument_id": 2469,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1601",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "3.2972522897585343",
+          "extreme_price": "0.06005",
+          "extreme_timestamp_ms": 1795651200000,
+          "instrument_id": 1601,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1311",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "3.3464566929133857",
+          "extreme_price": "0.01016",
+          "extreme_timestamp_ms": 1795737600000,
+          "instrument_id": 1311,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:2358",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "3.5099883000389998",
+          "extreme_price": "230.77",
+          "extreme_timestamp_ms": 1795564800000,
+          "instrument_id": 2358,
+          "semi_cycle_direction": null
+        },
+        {
+          "candidate_key": "mexc:1465",
+          "cycle_age": null,
+          "decision_timestamp_ms": 1795737600000,
+          "direction": "short",
+          "distance_pct": "4.036697247706422",
+          "extreme_price": "0.7085",
+          "extreme_timestamp_ms": 1795564800000,
+          "instrument_id": 1465,
+          "semi_cycle_direction": null
+        }
+      ],
+      "last_attempt_ms": null
+    },
     "positions": [
       {
         "category": "crypto",
@@ -403,7 +648,7 @@
         "initial_margin_usdt": "46.0494",
         "instrument_id": 2305,
         "last_funding_timestamp_ms": 1795741447868,
-        "last_mark_price": "46.14",
+        "last_mark_price": "46.16",
         "leverage": "2",
         "lowest_since_entry": "46.75065989847715736040609137",
         "quantity": "1.97",
@@ -421,7 +666,7 @@
         "initial_margin_usdt": "46.0209",
         "instrument_id": 2252,
         "last_funding_timestamp_ms": 1795741447868,
-        "last_mark_price": "17.21",
+        "last_mark_price": "17.22",
         "leverage": "2",
         "lowest_since_entry": "17.14",
         "quantity": "5.37",
@@ -439,9 +684,9 @@
   },
   "schema_version": 1,
   "state_event": {
-    "batch_hash": "71ea4903c0f8ff3159491c92612519c9a96ee730f785ba0777c4ec723de23bea",
-    "commit_sha": "bc51d1bf01cea8714f376c3b66b28187417e7759",
+    "batch_hash": "a6f63126b21a2d637600886e6c43d3307066231a2788c59c31a6bc06b2583e6b",
+    "commit_sha": "9944b6445417342804f74b46c7d924d635106e02",
     "created": true,
-    "path": "events/2026/11/snapshot-1795805768075.json"
+    "path": "events/2026/11/risk-1795832794150.json"
   }
 }
