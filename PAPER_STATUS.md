@@ -8,10 +8,10 @@
 - Strategy generation: `high-low-ath-atl-cross-sectional-v1-100usdt`
 - Starting capital: **100.00000000 USDT**
 - Account state: **INITIALIZED — FORWARD PAPER**
-- Last report build: 2026-11-28 06:59:23 UTC
-- Latest workflow run: [46119051193](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/46119051193) · run #18, attempt 1 · failure · schedule
+- Last report build: 2026-11-28 10:22:04 UTC
+- Latest workflow run: [46134799588](https://github.com/takenthatusernameis-collab/high-vs-low/actions/runs/46134799588) · run #19, attempt 1 · failure · schedule
 - Latest processed daily candle: 2026-11-26 00:00:00 UTC
-- Latest account event: 2026-11-28 06:59:01 UTC
+- Latest account event: 2026-11-28 10:21:40 UTC
 - Primary execution journal: [PAPER_TRADE_JOURNAL.md](PAPER_TRADE_JOURNAL.md)
 
 ## Current performance
